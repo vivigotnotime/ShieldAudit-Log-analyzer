@@ -1,0 +1,21 @@
+=== NETWORK AUDIT LOG ===
+[2024-01-01 00:15:23] Connection: 192.168.1.105 -> 10.0.0.45 Port: 443 - TLS 1.3
+[2024-01-01 01:30:45] Connection: 192.168.1.110 -> 10.0.0.78 Port: 22 - SSH - Duration: 15min
+[2024-01-01 02:45:12] Connection: 192.168.1.95 -> 10.0.0.23 Port: 3306 - MySQL - Query: SELECT
+[2024-01-01 04:20:33] Connection: 192.168.1.67 -> 10.0.0.156 Port: 80 - HTTP - Traffic: 45MB
+[2024-01-01 05:55:45] Connection: 192.168.1.34 -> 10.0.0.89 Port: 25 - SMTP - Email sent
+[2024-01-01 07:30:22] Connection: 192.168.1.156 -> 10.0.0.45 Port: 443 - TLS 1.2 - API call
+[2024-01-01 08:45:12] Connection: 192.168.1.89 -> 10.0.0.167 Port: 389 - LDAP - Auth request
+[2024-01-01 09:20:45] Connection: 192.168.1.45 -> 10.0.0.34 Port: 5432 - PostgreSQL - Backup
+[2024-01-01 10:35:22] Connection: 192.168.1.123 -> 10.0.0.56 Port: 161 - SNMP - Monitoring
+[2024-01-01 11:50:33] Connection: 192.168.1.78 -> 10.0.0.90 Port: 53 - DNS - Query: google.com
+[2024-01-01 12:25:45] Connection: 192.168.1.234 -> 10.0.0.12 Port: 123 - NTP - Time sync
+[2024-01-01 13:40:12] Connection: 192.168.1.67 -> 10.0.0.178 Port: 445 - SMB - File access
+[2024-01-01 14:55:23] Connection: 192.168.1.89 -> 10.0.0.45 Port: 3389 - RDP - Session started
+[2024-01-01 15:30:45] Connection: 192.168.1.145 -> 10.0.0.67 Port: 22 - SFTP - File transfer
+[2024-01-01 16:45:12] Connection: 192.168.1.56 -> 10.0.0.89 Port: 8080 - Proxy - Request
+[2024-01-01 17:20:33] Connection: 192.168.1.234 -> 10.0.0.156 Port: 27017 - MongoDB - Query
+[2024-01-01 18:35:45] Connection: 192.168.1.178 -> 10.0.0.34 Port: 6379 - Redis - Cache hit
+[2024-01-01 19:50:22] Connection: 192.168.1.90 -> 10.0.0.123 Port: 5672 - RabbitMQ - Message
+[2024-01-01 20:25:12] Connection: 192.168.1.45 -> 10.0.0.178 Port: 9200 - Elasticsearch - Search
+[2024-01-01 21:40:45] Connection: 192.168.1.167 -> 10.0.0.89 Port: 5601 - Kibana - Dashboard
