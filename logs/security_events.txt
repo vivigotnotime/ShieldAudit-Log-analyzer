@@ -97,7 +97,6 @@
 [2026-02-01 21:46:01] ALERT: Potential SQL injection attempt - Pattern: UNION SELECT, Source IP: 185.142.53.106
 [2026-02-01 21:46:02] INFO: Query blocked by WAF - Rule: SQLI-002, Action: BLOCK
 
-[2026-02-01 23:59:59] INFO: Daily security summary - Date: 2026-02-01
 [2026-02-01 23:59:59] INFO: Events - Total: 12,345, Critical: 3, High: 23, Medium: 145, Low: 2,345
 [2026-02-01 23:59:59] INFO: Top attack sources - 185.142.53.0/24 (234 events), 203.0.113.0/24 (145 events)
 [2026-02-01 23:59:59] INFO: Mitigations - IPs blocked: 45, Rules triggered: 234, WAF blocks: 567

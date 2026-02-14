@@ -1,7 +1,7 @@
 """
 main_gui.py
-Purpose: Main client application with Tkinter GUI
-Importance: User interface for log viewing, integrity monitoring, and server communication
+Purpose: Main client application with Tkinter GUI and role-based access control
+Features: Login/Logout, Persistent server, Role-based permissions
 """
 
 import tkinter as tk
@@ -20,33 +20,77 @@ import hashlib
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from src.security_utils import CircularLogBuffer, SecurityUtils
 
+# Global server process (persists across logins)
+SERVER_PROCESS = None
+SERVER_THREAD = None
+SERVER_RUNNING = False
+
 class LoginWindow:
     """Login window for user authentication"""
     def __init__(self):
         self.window = tk.Tk()
         self.window.title("ShieldAudit - Login")
-        self.window.geometry("400x500")
+        self.window.geometry("450x600")
         self.window.configure(bg='#abb1cf')
         
         # Center the window
         self.window.eval('tk::PlaceWindow . center')
         
-        # User credentials (for demo purposes)
+        # User credentials with explicit permissions
         self.users = {
             'admin': {
                 'password': 'admin123',
                 'role': 'Administrator',
-                'purpose': 'Full access to all logs and server controls'
+                'permissions': {
+                    'start_server': True,
+                    'stop_server': True,
+                    'connect_server': True,
+                    'load_logs': True,
+                    'start_monitoring': True,
+                    'stop_monitoring': True,
+                    'search_logs': True,
+                    'view_alerts': True,
+                    'configure_settings': True,
+                    'manage_users': True
+                },
+                'purpose': 'Full system administration - can perform all actions',
+                'color': '#e17369'  # Red
             },
             'auditor': {
                 'password': 'audit123',
                 'role': 'Security Auditor',
-                'purpose': 'View logs and integrity reports only'
+                'permissions': {
+                    'start_server': False,
+                    'stop_server': False,
+                    'connect_server': False,
+                    'load_logs': True,
+                    'start_monitoring': False,
+                    'stop_monitoring': False,
+                    'search_logs': True,
+                    'view_alerts': True,
+                    'configure_settings': False,
+                    'manage_users': False
+                },
+                'purpose': 'View logs and alerts only - cannot modify system state',
+                'color': '#92a8d1'  # Blue
             },
             'analyst': {
                 'password': 'analyze123',
                 'role': 'Log Analyst',
-                'purpose': 'Search and filter logs, view alerts'
+                'permissions': {
+                    'start_server': False,
+                    'stop_server': False,
+                    'connect_server': True,
+                    'load_logs': True,
+                    'start_monitoring': True,
+                    'stop_monitoring': True,
+                    'search_logs': True,
+                    'view_alerts': True,
+                    'configure_settings': False,
+                    'manage_users': False
+                },
+                'purpose': 'Analyze logs and monitor integrity - cannot start/stop server',
+                'color': '#f3b2ad'  # Pink
             }
         }
         
@@ -57,7 +101,7 @@ class LoginWindow:
         title_label = tk.Label(
             self.window,
             text="🔒 ShieldAudit",
-            font=("Arial", 24, "bold"),
+            font=("Arial", 28, "bold"),
             bg='#abb1cf',
             fg='#2d2d2d'
         )
@@ -66,110 +110,196 @@ class LoginWindow:
         subtitle_label = tk.Label(
             self.window,
             text="Secure Distributed Log Integrity Guard",
-            font=("Arial", 10),
+            font=("Arial", 11),
             bg='#abb1cf',
             fg='#2d2d2d'
         )
         subtitle_label.pack(pady=10)
         
+        # Server status indicator
+        server_frame = tk.Frame(self.window, bg='#abb1cf')
+        server_frame.pack(pady=10)
+        
+        global SERVER_RUNNING
+        server_status_text = "🟢 Server Running" if SERVER_RUNNING else "🔴 Server Stopped"
+        server_status_color = "green" if SERVER_RUNNING else "red"
+        
+        self.server_status_label = tk.Label(
+            server_frame,
+            text=server_status_text,
+            font=("Arial", 10, "bold"),
+            bg='#abb1cf',
+            fg=server_status_color
+        )
+        self.server_status_label.pack()
+        
         # Login frame
-        login_frame = tk.Frame(self.window, bg='#92a8d1', padx=20, pady=20)
-        login_frame.pack(pady=20)
+        login_frame = tk.Frame(self.window, bg='#92a8d1', padx=30, pady=30)
+        login_frame.pack(pady=20, padx=50, fill='both')
         
         # Username
         tk.Label(
             login_frame,
             text="Username:",
-            font=("Arial", 11),
+            font=("Arial", 12),
             bg='#92a8d1',
             fg='#2d2d2d'
-        ).grid(row=0, column=0, pady=5, sticky='w')
+        ).pack(anchor='w', pady=(0,5))
         
         self.username_var = tk.StringVar(value="admin")
         username_entry = tk.Entry(
             login_frame,
             textvariable=self.username_var,
-            font=("Arial", 11),
-            width=20
+            font=("Arial", 12),
+            width=25,
+            bg='white',
+            fg='#2d2d2d'
         )
-        username_entry.grid(row=0, column=1, pady=5, padx=10)
+        username_entry.pack(pady=(0,15))
         
         # Password
         tk.Label(
             login_frame,
             text="Password:",
-            font=("Arial", 11),
+            font=("Arial", 12),
             bg='#92a8d1',
             fg='#2d2d2d'
-        ).grid(row=1, column=0, pady=5, sticky='w')
+        ).pack(anchor='w', pady=(0,5))
         
         self.password_var = tk.StringVar(value="admin123")
         password_entry = tk.Entry(
             login_frame,
             textvariable=self.password_var,
-            font=("Arial", 11),
-            width=20,
-            show="*"
+            font=("Arial", 12),
+            width=25,
+            show="*",
+            bg='white',
+            fg='#2d2d2d'
         )
-        password_entry.grid(row=1, column=1, pady=5, padx=10)
+        password_entry.pack(pady=(0,20))
         
         # Login button
         login_btn = tk.Button(
             login_frame,
             text="Login",
-            font=("Arial", 11, "bold"),
+            font=("Arial", 12, "bold"),
             bg='#e17369',
             fg='#2d2d2d',
-            padx=20,
-            pady=5,
-            command=self.login
+            padx=30,
+            pady=8,
+            command=self.login,
+            cursor="hand2"
         )
-        login_btn.grid(row=2, column=0, columnspan=2, pady=20)
+        login_btn.pack(pady=10)
         
         # User info section
         info_frame = tk.Frame(self.window, bg='#abb1cf')
-        info_frame.pack(pady=20, fill='both', expand=True)
+        info_frame.pack(pady=10, fill='both', expand=True, padx=20)
         
         tk.Label(
             info_frame,
-            text="Demo Credentials:",
-            font=("Arial", 11, "bold"),
+            text="📋 Demo Credentials & Permissions",
+            font=("Arial", 12, "bold"),
             bg='#abb1cf',
             fg='#2d2d2d'
-        ).pack()
+        ).pack(pady=10)
         
-        # Display user credentials
+        # Create a canvas with scrollbar for user info
+        canvas = tk.Canvas(info_frame, bg='#abb1cf', highlightthickness=0)
+        scrollbar = tk.Scrollbar(info_frame, orient="vertical", command=canvas.yview)
+        scrollable_frame = tk.Frame(canvas, bg='#abb1cf')
+        
+        scrollable_frame.bind(
+            "<Configure>",
+            lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
+        )
+        
+        canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
+        canvas.configure(yscrollcommand=scrollbar.set)
+        
+        # Display user credentials with permissions
         for username, data in self.users.items():
-            user_text = f"• {username}: {data['password']} - {data['role']}"
+            # User card
+            card_frame = tk.Frame(scrollable_frame, bg=data['color'], padx=15, pady=10)
+            card_frame.pack(fill='x', pady=5, padx=5)
+            
+            # Username and role
             tk.Label(
-                info_frame,
-                text=user_text,
-                font=("Arial", 9),
-                bg='#abb1cf',
+                card_frame,
+                text=f"👤 {username.upper()} - {data['role']}",
+                font=("Arial", 11, "bold"),
+                bg=data['color'],
+                fg='#2d2d2d'
+            ).pack(anchor='w')
+            
+            # Password
+            tk.Label(
+                card_frame,
+                text=f"🔑 Password: {data['password']}",
+                font=("Arial", 10),
+                bg=data['color'],
+                fg='#2d2d2d'
+            ).pack(anchor='w', pady=(2,5))
+            
+            # Purpose
+            tk.Label(
+                card_frame,
+                text=f"📌 {data['purpose']}",
+                font=("Arial", 9, "italic"),
+                bg=data['color'],
                 fg='#2d2d2d',
-                anchor='w'
-            ).pack(pady=2, padx=20, fill='x')
+                wraplength=300,
+                justify='left'
+            ).pack(anchor='w', pady=(0,5))
+            
+            # Permissions
+            perm_text = "✓ " + ", ".join([k.replace('_', ' ').title() 
+                                         for k, v in data['permissions'].items() if v])
+            tk.Label(
+                card_frame,
+                text=perm_text,
+                font=("Arial", 8),
+                bg=data['color'],
+                fg='#2d2d2d',
+                wraplength=300,
+                justify='left'
+            ).pack(anchor='w')
+        
+        canvas.pack(side="left", fill="both", expand=True)
+        scrollbar.pack(side="right", fill="y")
     
     def login(self):
         username = self.username_var.get()
         password = self.password_var.get()
         
         if username in self.users and self.users[username]['password'] == password:
-            self.window.destroy()
-            # Open main application
-            app = ShieldAuditGUI(self.users[username])
+            self.window.withdraw()  # Hide login window
+            # Open main application with user permissions
+            app = ShieldAuditGUI(self.users[username], self)
             app.run()
         else:
             messagebox.showerror("Login Failed", "Invalid username or password")
+    
+    def show_login(self):
+        """Show login window again after logout"""
+        global SERVER_RUNNING
+        # Update server status
+        server_status_text = "🟢 Server Running" if SERVER_RUNNING else "🔴 Server Stopped"
+        server_status_color = "green" if SERVER_RUNNING else "red"
+        self.server_status_label.config(text=server_status_text, fg=server_status_color)
+        
+        self.window.deiconify()  # Show login window
     
     def run(self):
         self.window.mainloop()
 
 class ShieldAuditGUI:
-    """Main GUI Application"""
-    def __init__(self, user_info):
+    """Main GUI Application with Role-Based Access Control"""
+    def __init__(self, user_info, login_window):
         self.user = user_info
-        self.root = tk.Tk()
+        self.login_window = login_window
+        self.permissions = user_info['permissions']
+        self.root = tk.Toplevel()
         self.root.title(f"ShieldAudit - Logged in as {user_info['role']}")
         self.root.geometry("1400x800")
         self.root.configure(bg='#abb1cf')
@@ -178,11 +308,9 @@ class ShieldAuditGUI:
         self.log_buffer = CircularLogBuffer(max_size=100)
         self.security_utils = SecurityUtils()
         self.current_log_file = None
-        self.server_process = None
         self.monitoring = False
         self.last_hash = None
         self.client_socket = None
-        self.server_ready = False
         self.heartbeat_thread_running = False
         
         # Color scheme
@@ -192,15 +320,57 @@ class ShieldAuditGUI:
             'bg3': '#f3b2ad',
             'bg4': '#abb1cf',
             'bg5': '#92a8d1',
-            'text': '#2d2d2d'
+            'text': '#2d2d2d',
+            'disabled': '#888888'  # Gray for disabled buttons
         }
         
         self.create_widgets()
         self.setup_log_files()
+        self.check_server_status()
+        self.apply_role_based_restrictions()
         
         # Set up protocol for window closing
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
+    
+    def check_server_status(self):
+        """Check and display server status"""
+        global SERVER_RUNNING
+        if SERVER_RUNNING:
+            self.server_status_label.config(text="Server: Running", fg='green')
+            if self.permissions.get('connect_server', False):
+                self.connect_btn.config(state='normal')
+            self.connection_status_label.config(text="Ready to Connect", fg='blue')
+        else:
+            self.server_status_label.config(text="Server: Stopped", fg='red')
+    
+    def apply_role_based_restrictions(self):
+        """Apply role-based access control to GUI elements"""
+        print(f"\n🔐 Applying role-based restrictions for: {self.user['role']}")
         
+        # Server Control Section
+        if not self.permissions.get('start_server', False):
+            self.start_server_btn.config(state='disabled', bg=self.colors['disabled'])
+            self.start_server_btn.config(text="🚫 Start Server (Admin Only)")
+        
+        if not self.permissions.get('stop_server', False):
+            self.stop_server_btn.config(state='disabled', bg=self.colors['disabled'])
+            self.stop_server_btn.config(text="🛑 Stop Server (Admin Only)")
+        
+        if not self.permissions.get('connect_server', False):
+            self.connect_btn.config(state='disabled', bg=self.colors['disabled'])
+            self.connect_btn.config(text="🔌 Connect (Auditor cannot connect)")
+        
+        # Monitoring Section
+        if not self.permissions.get('start_monitoring', False):
+            self.start_monitor_btn.config(state='disabled', bg=self.colors['disabled'])
+            self.start_monitor_btn.config(text="▶️ Monitoring (View Only)")
+        
+        # Display role summary
+        enabled = [k for k, v in self.permissions.items() if v]
+        disabled = [k for k, v in self.permissions.items() if not v]
+        print(f"  Enabled: {', '.join(enabled)}")
+        print(f"  Disabled: {', '.join(disabled)}")
+    
     def create_widgets(self):
         """Create all GUI widgets"""
         # Main container
@@ -208,7 +378,7 @@ class ShieldAuditGUI:
         main_frame.pack(fill='both', expand=True, padx=10, pady=10)
         
         # Left panel - Controls
-        left_panel = tk.Frame(main_frame, bg=self.colors['bg5'], width=300)
+        left_panel = tk.Frame(main_frame, bg=self.colors['bg5'], width=320)
         left_panel.pack(side='left', fill='y', padx=(0, 10))
         left_panel.pack_propagate(False)
         
@@ -218,25 +388,68 @@ class ShieldAuditGUI:
         
         # ========== LEFT PANEL WIDGETS ==========
         
-        # User info
+        # User info with role badge and logout button
         user_frame = tk.Frame(left_panel, bg=self.colors['bg5'])
         user_frame.pack(fill='x', pady=10, padx=10)
         
+        # Role badge with color coding
+        role_colors = {
+            'Administrator': '#e17369',
+            'Security Auditor': '#92a8d1',
+            'Log Analyst': '#f3b2ad'
+        }
+        role_color = role_colors.get(self.user['role'], self.colors['bg2'])
+        
+        role_badge = tk.Frame(user_frame, bg=role_color, padx=10, pady=5)
+        role_badge.pack(fill='x')
+        
         tk.Label(
-            user_frame,
+            role_badge,
             text=f"👤 {self.user['role']}",
             font=("Arial", 12, "bold"),
+            bg=role_color,
+            fg='#2d2d2d'
+        ).pack(side='left')
+        
+        # Logout button
+        logout_btn = tk.Button(
+            role_badge,
+            text="🚪 Logout",
+            font=("Arial", 9, "bold"),
+            bg='#2d2d2d',
+            fg='white',
+            command=self.logout,
+            cursor="hand2"
+        )
+        logout_btn.pack(side='right')
+        
+        # Permission summary
+        perm_text = []
+        if self.permissions.get('start_server', False):
+            perm_text.append("✓ Can start/stop server")
+        if self.permissions.get('connect_server', False):
+            perm_text.append("✓ Can connect to server")
+        if self.permissions.get('start_monitoring', False):
+            perm_text.append("✓ Can monitor logs")
+        if self.permissions.get('search_logs', False):
+            perm_text.append("✓ Can search logs")
+        
+        tk.Label(
+            user_frame,
+            text="\n".join(perm_text),
+            font=("Arial", 9),
             bg=self.colors['bg5'],
-            fg=self.colors['text']
-        ).pack()
+            fg='#2d2d2d',
+            justify='left'
+        ).pack(pady=5)
         
         tk.Label(
             user_frame,
             text=f"Purpose: {self.user['purpose']}",
-            font=("Arial", 9),
+            font=("Arial", 9, "italic"),
             bg=self.colors['bg5'],
-            fg=self.colors['text'],
-            wraplength=250
+            fg='#2d2d2d',
+            wraplength=280
         ).pack(pady=5)
         
         # Server Control Section
@@ -254,29 +467,49 @@ class ShieldAuditGUI:
         self.server_status_label = tk.Label(
             server_frame,
             text="Server: Stopped",
-            font=("Arial", 10),
+            font=("Arial", 10, "bold"),
             bg=self.colors['bg5'],
-            fg=self.colors['text']
+            fg='red'
         )
         self.server_status_label.pack(pady=5)
         
+        # Server control buttons frame
+        server_btn_frame = tk.Frame(server_frame, bg=self.colors['bg5'])
+        server_btn_frame.pack(fill='x', pady=5)
+        
         self.start_server_btn = tk.Button(
-            server_frame,
-            text="🚀 Start Server",
+            server_btn_frame,
+            text="🚀 Start",
             font=("Arial", 10, "bold"),
             bg=self.colors['bg1'],
             fg=self.colors['text'],
-            command=self.start_server
+            command=self.start_server,
+            width=10,
+            cursor="hand2"
         )
-        self.start_server_btn.pack(fill='x', pady=5)
+        self.start_server_btn.pack(side='left', padx=2)
+        
+        self.stop_server_btn = tk.Button(
+            server_btn_frame,
+            text="🛑 Stop",
+            font=("Arial", 10, "bold"),
+            bg=self.colors['bg2'],
+            fg=self.colors['text'],
+            command=self.stop_server,
+            width=10,
+            cursor="hand2",
+            state='disabled'
+        )
+        self.stop_server_btn.pack(side='left', padx=2)
         
         self.connect_btn = tk.Button(
             server_frame,
             text="🔌 Connect to Server",
             font=("Arial", 10, "bold"),
-            bg=self.colors['bg2'],
+            bg=self.colors['bg3'],
             fg=self.colors['text'],
             command=self.connect_to_server,
+            cursor="hand2",
             state='disabled'
         )
         self.connect_btn.pack(fill='x', pady=5)
@@ -308,7 +541,7 @@ class ShieldAuditGUI:
             file_frame,
             textvariable=self.log_file_var,
             state='readonly',
-            width=25
+            width=28
         )
         self.log_file_combo.pack(pady=5)
         
@@ -316,9 +549,10 @@ class ShieldAuditGUI:
             file_frame,
             text="📂 Load Selected Log",
             font=("Arial", 10, "bold"),
-            bg=self.colors['bg3'],
+            bg=self.colors['bg1'],
             fg=self.colors['text'],
-            command=self.load_log_file
+            command=self.load_log_file,
+            cursor="hand2"
         )
         self.load_log_btn.pack(fill='x', pady=5)
         
@@ -347,9 +581,10 @@ class ShieldAuditGUI:
             monitor_frame,
             text="▶️ Start Monitoring",
             font=("Arial", 10, "bold"),
-            bg=self.colors['bg1'],
+            bg=self.colors['bg2'],
             fg=self.colors['text'],
-            command=self.toggle_monitoring
+            command=self.toggle_monitoring,
+            cursor="hand2"
         )
         self.start_monitor_btn.pack(fill='x', pady=5)
         
@@ -366,7 +601,6 @@ class ShieldAuditGUI:
         search_frame.pack(fill='x', pady=10, padx=10)
         
         self.search_var = tk.StringVar()
-        # Fixed: Use trace_add instead of trace to avoid deprecation warning
         self.search_var.trace_add('write', self.search_logs)
         
         search_entry = tk.Entry(
@@ -437,6 +671,36 @@ class ShieldAuditGUI:
         )
         self.status_label.pack(side='left', padx=10)
         
+        # Role indicator in status bar
+        role_indicator = tk.Label(
+            status_bar,
+            text=f"Logged in as: {self.user['role']}",
+            bg=self.colors['bg2'],
+            fg=self.colors['text'],
+            font=("Arial", 9, "bold")
+        )
+        role_indicator.pack(side='right', padx=10)
+    
+    def logout(self):
+        """Logout current user and return to login screen"""
+        # Stop monitoring if active
+        if self.monitoring:
+            self.monitoring = False
+            self.heartbeat_thread_running = False
+        
+        # Close client socket if connected
+        if self.client_socket:
+            try:
+                self.client_socket.close()
+            except:
+                pass
+        
+        # Destroy current window
+        self.root.destroy()
+        
+        # Show login window again
+        self.login_window.show_login()
+    
     def setup_log_files(self):
         """Create sample log files if they don't exist"""
         log_dir = "../logs"
@@ -526,19 +790,22 @@ class ShieldAuditGUI:
         return "\n".join(logs)
     
     def start_server(self):
-        """Start the server process"""
+        """Start the server process - Admin only"""
+        global SERVER_PROCESS, SERVER_RUNNING
+        
+        if not self.permissions.get('start_server', False):
+            messagebox.showerror("Access Denied", 
+                               "You don't have permission to start the server.\n"
+                               "Only Administrators can control the server.")
+            return
+        
+        if SERVER_RUNNING:
+            messagebox.showinfo("Server Status", "Server is already running!")
+            return
+        
         try:
-            # First check if server is already running
-            if self.check_server_running():
-                messagebox.showinfo("Server Status", "Server is already running!")
-                self.server_status_label.config(text="Server: Running", fg='green')
-                self.start_server_btn.config(state='disabled')
-                self.connect_btn.config(state='normal')
-                self.connection_status_label.config(text="Ready to Connect", fg='blue')
-                return
-            
             # Run server in a separate process
-            self.server_process = subprocess.Popen(
+            SERVER_PROCESS = subprocess.Popen(
                 [sys.executable, "src/server_vault.py"],
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
@@ -546,29 +813,75 @@ class ShieldAuditGUI:
                 creationflags=subprocess.CREATE_NO_WINDOW if sys.platform == 'win32' else 0
             )
             
+            SERVER_RUNNING = True
             self.server_status_label.config(text="Server: Starting...", fg='orange')
             self.start_server_btn.config(state='disabled')
+            self.stop_server_btn.config(state='normal')
             
             # Wait for server to start
             self.root.after(2000, self.check_server_ready)
             
             self.update_status("Server starting...")
+            self.update_alerts("🟢 Server starting...")
             
             # Start thread to read server output
             threading.Thread(target=self.read_server_output, daemon=True).start()
             
         except Exception as e:
             messagebox.showerror("Server Error", f"Failed to start server: {e}")
+            SERVER_RUNNING = False
             self.server_status_label.config(text="Server: Failed", fg='red')
-            self.start_server_btn.config(state='normal')
+            if self.permissions.get('start_server', False):
+                self.start_server_btn.config(state='normal')
+    
+    def stop_server(self):
+        """Stop the server process - Admin only"""
+        global SERVER_PROCESS, SERVER_RUNNING
+        
+        if not self.permissions.get('stop_server', False):
+            messagebox.showerror("Access Denied", 
+                               "You don't have permission to stop the server.\n"
+                               "Only Administrators can control the server.")
+            return
+        
+        if not SERVER_RUNNING:
+            messagebox.showinfo("Server Status", "Server is not running!")
+            return
+        
+        # Confirm with user
+        if messagebox.askyesno("Confirm", "Are you sure you want to stop the server?\nAll connected clients will be disconnected."):
+            try:
+                if SERVER_PROCESS:
+                    SERVER_PROCESS.terminate()
+                    SERVER_PROCESS.wait(timeout=5)
+                
+                SERVER_RUNNING = False
+                self.server_status_label.config(text="Server: Stopped", fg='red')
+                self.start_server_btn.config(state='normal')
+                self.stop_server_btn.config(state='disabled')
+                self.connect_btn.config(state='disabled')
+                self.connection_status_label.config(text="Not Connected", fg='red')
+                
+                self.update_status("Server stopped")
+                self.update_alerts("🔴 Server stopped")
+                
+                # Close client connection if any
+                if self.client_socket:
+                    self.client_socket.close()
+                    self.client_socket = None
+                
+            except Exception as e:
+                messagebox.showerror("Error", f"Failed to stop server: {e}")
     
     def check_server_ready(self):
         """Check if server is ready and enable connection button"""
         if self.check_server_running():
             self.server_status_label.config(text="Server: Running", fg='green')
-            self.connect_btn.config(state='normal')
+            if self.permissions.get('connect_server', False):
+                self.connect_btn.config(state='normal')
             self.connection_status_label.config(text="Ready to Connect", fg='blue')
             self.update_status("Server is ready")
+            self.update_alerts("🟢 Server is ready")
         else:
             # Try again after 2 seconds
             self.root.after(2000, self.check_server_ready)
@@ -586,13 +899,26 @@ class ShieldAuditGUI:
     
     def read_server_output(self):
         """Read and display server output"""
-        if self.server_process:
-            for line in self.server_process.stdout:
+        global SERVER_PROCESS
+        if SERVER_PROCESS:
+            for line in SERVER_PROCESS.stdout:
                 if line:
                     self.root.after(0, lambda l=line: self.update_alerts(f"SERVER: {l.strip()}"))
     
     def connect_to_server(self):
-        """Connect to the server"""
+        """Connect to the server - Admin and Analyst only"""
+        global SERVER_RUNNING
+        
+        if not self.permissions.get('connect_server', False):
+            messagebox.showerror("Access Denied", 
+                               "You don't have permission to connect to the server.\n"
+                               "Auditors can only view existing logs, not connect.")
+            return
+        
+        if not SERVER_RUNNING:
+            messagebox.showerror("Connection Error", "Server is not running. Please start the server first.")
+            return
+        
         try:
             # Try to connect with timeout
             self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -602,19 +928,18 @@ class ShieldAuditGUI:
             self.connection_status_label.config(text="Connected", fg='green')
             self.connect_btn.config(state='disabled', text="✅ Connected")
             self.update_status("Connected to server")
+            self.update_alerts("✅ Connected to server")
             
-            # Start heartbeat thread
-            self.start_heartbeat()
+            # Start heartbeat thread if monitoring is allowed
+            if self.permissions.get('start_monitoring', False):
+                self.start_heartbeat()
             
         except socket.timeout:
             messagebox.showerror("Connection Error", "Connection timeout - server not responding")
             self.connection_status_label.config(text="Connection Failed", fg='red')
         except ConnectionRefusedError:
             messagebox.showerror("Connection Error", 
-                               "Cannot connect to server. Please make sure the server is started first.\n\n"
-                               "1. Click 'Start Server' button\n"
-                               "2. Wait for 'Server: Running' status\n"
-                               "3. Then click 'Connect to Server'")
+                               "Cannot connect to server. Please make sure the server is running.")
             self.connection_status_label.config(text="Server Not Ready", fg='red')
         except Exception as e:
             messagebox.showerror("Connection Error", f"Failed to connect to server: {e}")
@@ -668,15 +993,20 @@ class ShieldAuditGUI:
     def handle_disconnection(self):
         """Handle server disconnection"""
         self.connection_status_label.config(text="Disconnected", fg='red')
-        self.connect_btn.config(state='normal', text="🔌 Connect to Server")
+        if self.permissions.get('connect_server', False):
+            self.connect_btn.config(state='normal', text="🔌 Connect to Server")
         self.monitoring = False
         self.monitor_status_label.config(text="Monitoring: Inactive", fg=self.colors['text'])
-        self.start_monitor_btn.config(text="▶️ Start Monitoring", bg=self.colors['bg1'])
+        self.start_monitor_btn.config(text="▶️ Start Monitoring", bg=self.colors['bg2'])
         self.update_status("Disconnected from server")
         self.update_alerts("⚠️ Disconnected from server")
     
     def load_log_file(self):
-        """Load selected log file"""
+        """Load selected log file - All roles can view logs"""
+        if not self.permissions.get('load_logs', False):
+            messagebox.showerror("Access Denied", "You don't have permission to view logs.")
+            return
+        
         filename = self.log_file_var.get()
         if not filename:
             return
@@ -688,7 +1018,7 @@ class ShieldAuditGUI:
                 content = f.read()
             
             # Update circular buffer
-            self.log_buffer = CircularLogBuffer(max_size=100)  # Reset buffer
+            self.log_buffer = CircularLogBuffer(max_size=100)
             for line in content.split('\n'):
                 if line.strip():
                     self.log_buffer.add_log(line)
@@ -709,6 +1039,12 @@ class ShieldAuditGUI:
     
     def toggle_monitoring(self):
         """Toggle integrity monitoring"""
+        if not self.permissions.get('start_monitoring', False):
+            messagebox.showerror("Access Denied", 
+                               "You don't have permission to start monitoring.\n"
+                               "Auditors can only view logs, not monitor them.")
+            return
+        
         if not self.current_log_file:
             messagebox.showwarning("Warning", "Please load a log file first")
             return
@@ -721,14 +1057,16 @@ class ShieldAuditGUI:
         
         if self.monitoring:
             self.monitor_status_label.config(text="Monitoring: Active", fg='green')
-            self.start_monitor_btn.config(text="⏸️ Stop Monitoring", bg=self.colors['bg2'])
+            self.start_monitor_btn.config(text="⏸️ Stop Monitoring", bg=self.colors['bg1'])
             self.update_status("Monitoring started - will detect file changes")
+            self.update_alerts("▶️ Monitoring started")
             # Start monitoring thread
             threading.Thread(target=self.monitor_integrity, daemon=True).start()
         else:
             self.monitor_status_label.config(text="Monitoring: Inactive", fg=self.colors['text'])
-            self.start_monitor_btn.config(text="▶️ Start Monitoring", bg=self.colors['bg1'])
+            self.start_monitor_btn.config(text="▶️ Start Monitoring", bg=self.colors['bg2'])
             self.update_status("Monitoring stopped")
+            self.update_alerts("⏸️ Monitoring stopped")
     
     def monitor_integrity(self):
         """Monitor file integrity"""
@@ -764,7 +1102,10 @@ class ShieldAuditGUI:
         self.update_alerts(f"🚨 {message}")
     
     def search_logs(self, *args):
-        """Search logs for keyword"""
+        """Search logs for keyword - All roles can search"""
+        if not self.permissions.get('search_logs', False):
+            return
+        
         keyword = self.search_var.get().strip()
         
         if not keyword or not self.current_log_file:
@@ -813,7 +1154,10 @@ class ShieldAuditGUI:
             print(f"Search error: {e}")
     
     def update_alerts(self, message):
-        """Update alerts display"""
+        """Update alerts display - All roles can view alerts"""
+        if not self.permissions.get('view_alerts', False):
+            return
+        
         self.alerts_display.config(state='normal')
         self.alerts_display.insert('end', f"[{datetime.now().strftime('%H:%M:%S')}] {message}\n")
         self.alerts_display.see('end')
@@ -828,22 +1172,8 @@ class ShieldAuditGUI:
         self.root.mainloop()
     
     def on_closing(self):
-        """Clean up on close"""
-        self.heartbeat_thread_running = False
-        if self.client_socket:
-            try:
-                self.client_socket.close()
-            except:
-                pass
-        
-        if self.server_process:
-            try:
-                self.server_process.terminate()
-                self.server_process.wait(timeout=3)
-            except:
-                self.server_process.kill()
-        
-        self.root.destroy()
+        """Handle window closing - logout instead of exit"""
+        self.logout()
 
 def main():
     """Main entry point"""

@@ -34,12 +34,16 @@ class TestLoginWindow(unittest.TestCase):
         self.label_patcher = patch('tkinter.Label')
         self.button_patcher = patch('tkinter.Button')
         self.frame_patcher = patch('tkinter.Frame')
+        self.canvas_patcher = patch('tkinter.Canvas')
+        self.scrollbar_patcher = patch('tkinter.Scrollbar')
         
         self.mock_tk = self.tk_patcher.start()
         self.mock_stringvar = self.stringvar_patcher.start()
         self.mock_label = self.label_patcher.start()
         self.mock_button = self.button_patcher.start()
         self.mock_frame = self.frame_patcher.start()
+        self.mock_canvas = self.canvas_patcher.start()
+        self.mock_scrollbar = self.scrollbar_patcher.start()
         
         # Configure StringVar mock to behave like a real StringVar
         self.username_var = MagicMock()
@@ -55,6 +59,7 @@ class TestLoginWindow(unittest.TestCase):
             self.login.window = self.mock_tk
             self.login.username_var = self.username_var
             self.login.password_var = self.password_var
+            self.login.server_status_label = MagicMock()
     
     def tearDown(self):
         self.tk_patcher.stop()
@@ -62,6 +67,8 @@ class TestLoginWindow(unittest.TestCase):
         self.label_patcher.stop()
         self.button_patcher.stop()
         self.frame_patcher.stop()
+        self.canvas_patcher.stop()
+        self.scrollbar_patcher.stop()
     
     def test_initialization(self):
         """Test login window initialization"""
@@ -78,6 +85,8 @@ class TestLoginWindow(unittest.TestCase):
             self.assertIn('password', self.login.users[username])
             self.assertIn('role', self.login.users[username])
             self.assertIn('purpose', self.login.users[username])
+            self.assertIn('permissions', self.login.users[username])
+            self.assertIn('color', self.login.users[username])
         print("✓ All users have required fields")
     
     @patch('tkinter.messagebox.showerror')
@@ -88,14 +97,23 @@ class TestLoginWindow(unittest.TestCase):
         self.username_var.get.return_value = "admin"
         self.password_var.get.return_value = "admin123"
         
-        # Mock the window destroy method
-        self.login.window.destroy = MagicMock()
+        # Mock the window withdraw method (used instead of destroy)
+        self.login.window.withdraw = MagicMock()
         
         # Mock ShieldAuditGUI to prevent actual GUI creation
         with patch('src.main_gui.ShieldAuditGUI') as mock_gui:
+            mock_gui_instance = MagicMock()
+            mock_gui.return_value = mock_gui_instance
+            
             self.login.login()
-            self.login.window.destroy.assert_called_once()
-            print("✓ Successful login: window destroyed")
+            
+            # Verify withdraw was called (window hidden)
+            self.login.window.withdraw.assert_called_once()
+            print("✓ Successful login: window hidden")
+            
+            # Verify ShieldAuditGUI was created with correct args
+            mock_gui.assert_called_once_with(self.login.users['admin'], self.login)
+            print("✓ ShieldAuditGUI created with user and login window")
         
         mock_showerror.assert_not_called()
         print("✓ No error message shown")
@@ -129,6 +147,24 @@ class TestLoginWindow(unittest.TestCase):
         # Verify showerror was called
         mock_showerror.assert_called_once()
         print("✓ Error message shown for nonexistent user")
+    
+    def test_show_login(self):
+        """Test show_login method"""
+        print("\n[TEST] Testing show_login method...")
+        
+        self.login.window.deiconify = MagicMock()
+        self.login.server_status_label.config = MagicMock()
+        
+        # Call show_login
+        self.login.show_login()
+        
+        # Verify deiconify was called
+        self.login.window.deiconify.assert_called_once()
+        print("✓ Login window shown")
+        
+        # Verify server status label was updated
+        self.login.server_status_label.config.assert_called()
+        print("✓ Server status updated")
 
 class TestShieldAuditGUI(unittest.TestCase):
     """Test the ShieldAuditGUI class"""
@@ -144,14 +180,30 @@ class TestShieldAuditGUI(unittest.TestCase):
         print(f"Starting test: {self._testMethodName}")
         print("-"*50)
         
-        # Create mock user
+        # Create mock user with permissions
         self.test_user = {
             'role': 'Administrator',
-            'purpose': 'Testing'
+            'purpose': 'Testing',
+            'permissions': {
+                'start_server': True,
+                'stop_server': True,
+                'connect_server': True,
+                'load_logs': True,
+                'start_monitoring': True,
+                'stop_monitoring': True,
+                'search_logs': True,
+                'view_alerts': True,
+                'configure_settings': True,
+                'manage_users': True
+            },
+            'color': '#e17369'
         }
         
+        # Create mock login window
+        self.mock_login_window = MagicMock()
+        
         # Mock all tkinter components
-        self.tk_patcher = patch('tkinter.Tk')
+        self.tk_patcher = patch('tkinter.Toplevel')
         self.stringvar_patcher = patch('tkinter.StringVar')
         self.frame_patcher = patch('tkinter.Frame')
         self.label_patcher = patch('tkinter.Label')
@@ -159,6 +211,7 @@ class TestShieldAuditGUI(unittest.TestCase):
         self.combobox_patcher = patch('tkinter.ttk.Combobox')
         self.text_patcher = patch('tkinter.scrolledtext.ScrolledText')
         self.notebook_patcher = patch('tkinter.ttk.Notebook')
+        self.messagebox_patcher = patch('tkinter.messagebox')
         
         self.mock_tk = self.tk_patcher.start()
         self.mock_stringvar = self.stringvar_patcher.start()
@@ -168,6 +221,7 @@ class TestShieldAuditGUI(unittest.TestCase):
         self.mock_combobox = self.combobox_patcher.start()
         self.mock_text = self.text_patcher.start()
         self.mock_notebook = self.notebook_patcher.start()
+        self.mock_messagebox = self.messagebox_patcher.start()
         
         # Configure StringVar mock
         self.search_var = MagicMock()
@@ -177,42 +231,60 @@ class TestShieldAuditGUI(unittest.TestCase):
         # Create GUI instance with mocked methods
         with patch.object(ShieldAuditGUI, 'setup_log_files'):
             with patch.object(ShieldAuditGUI, 'create_widgets'):
-                self.gui = ShieldAuditGUI(self.test_user)
-                self.gui.root = self.mock_tk
-                self.gui.search_var = self.search_var
-                
-                # Create all required mock widgets
-                self.gui.server_status_label = MagicMock()
-                self.gui.status_label = MagicMock()
-                self.gui.alerts_display = MagicMock()
-                self.gui.log_display = MagicMock()
-                self.gui.log_file_combo = MagicMock()
-                self.gui.start_server_btn = MagicMock()
-                self.gui.connect_btn = MagicMock()
-                self.gui.connection_status_label = MagicMock()
-                self.gui.monitor_status_label = MagicMock()
-                self.gui.start_monitor_btn = MagicMock()
-                self.gui.search_results_label = MagicMock()
-                
-                # Configure status_label for config method
-                self.gui.status_label.config = MagicMock()
-                self.gui.server_status_label.config = MagicMock()
-                self.gui.alerts_display.config = MagicMock()
-                self.gui.alerts_display.insert = MagicMock()
-                self.gui.alerts_display.see = MagicMock()
-                self.gui.search_results_label.config = MagicMock()
-                
-                # Set initial values
-                self.gui.monitoring = False
-                self.gui.current_log_file = None
-                self.gui.colors = {
-                    'bg1': '#e17369',
-                    'bg2': '#e95f69',
-                    'bg3': '#f3b2ad',
-                    'bg4': '#abb1cf',
-                    'bg5': '#92a8d1',
-                    'text': '#2d2d2d'
-                }
+                with patch.object(ShieldAuditGUI, 'apply_role_based_restrictions'):
+                    with patch.object(ShieldAuditGUI, 'check_server_status'):
+                        self.gui = ShieldAuditGUI(self.test_user, self.mock_login_window)
+                        self.gui.root = self.mock_tk
+                        self.gui.search_var = self.search_var
+                        
+                        # Create all required mock widgets
+                        self.gui.server_status_label = MagicMock()
+                        self.gui.status_label = MagicMock()
+                        self.gui.alerts_display = MagicMock()
+                        self.gui.log_display = MagicMock()
+                        self.gui.log_file_combo = MagicMock()
+                        self.gui.start_server_btn = MagicMock()
+                        self.gui.stop_server_btn = MagicMock()
+                        self.gui.connect_btn = MagicMock()
+                        self.gui.connection_status_label = MagicMock()
+                        self.gui.monitor_status_label = MagicMock()
+                        self.gui.start_monitor_btn = MagicMock()
+                        self.gui.search_results_label = MagicMock()
+                        
+                        # Configure status_label for config method
+                        self.gui.status_label.config = MagicMock()
+                        self.gui.server_status_label.config = MagicMock()
+                        self.gui.connection_status_label.config = MagicMock()
+                        self.gui.monitor_status_label.config = MagicMock()
+                        self.gui.alerts_display.config = MagicMock()
+                        self.gui.alerts_display.insert = MagicMock()
+                        self.gui.alerts_display.see = MagicMock()
+                        self.gui.search_results_label.config = MagicMock()
+                        
+                        # Configure button config methods
+                        self.gui.start_server_btn.config = MagicMock()
+                        self.gui.stop_server_btn.config = MagicMock()
+                        self.gui.connect_btn.config = MagicMock()
+                        self.gui.start_monitor_btn.config = MagicMock()
+                        
+                        # Set initial values
+                        self.gui.monitoring = False
+                        self.gui.current_log_file = None
+                        self.gui.colors = {
+                            'bg1': '#e17369',
+                            'bg2': '#e95f69',
+                            'bg3': '#f3b2ad',
+                            'bg4': '#abb1cf',
+                            'bg5': '#92a8d1',
+                            'text': '#2d2d2d',
+                            'disabled': '#888888'
+                        }
+                        
+                        # Mock global variables
+                        self.server_running_patcher = patch('src.main_gui.SERVER_RUNNING', False)
+                        self.server_process_patcher = patch('src.main_gui.SERVER_PROCESS', None)
+                        self.mock_server_running = self.server_running_patcher.start()
+                        self.mock_server_process = self.server_process_patcher.start()
     
     def tearDown(self):
         self.tk_patcher.stop()
@@ -223,6 +295,11 @@ class TestShieldAuditGUI(unittest.TestCase):
         self.combobox_patcher.stop()
         self.text_patcher.stop()
         self.notebook_patcher.stop()
+        self.messagebox_patcher.stop()
+        if hasattr(self, 'server_running_patcher'):
+            self.server_running_patcher.stop()
+        if hasattr(self, 'server_process_patcher'):
+            self.server_process_patcher.stop()
     
     def test_initialization(self):
         """Test GUI initialization"""
@@ -235,6 +312,9 @@ class TestShieldAuditGUI(unittest.TestCase):
         self.assertEqual(self.gui.user['role'], 'Administrator')
         print(f"✓ User role set correctly: {self.gui.user['role']}")
         
+        self.assertEqual(self.gui.login_window, self.mock_login_window)
+        print("✓ Login window reference stored")
+        
         self.assertFalse(self.gui.monitoring)
         print("✓ Monitoring initially disabled")
         
@@ -245,7 +325,7 @@ class TestShieldAuditGUI(unittest.TestCase):
         """Test color scheme configuration"""
         print("\n[TEST] Testing color scheme...")
         
-        expected_colors = ['bg1', 'bg2', 'bg3', 'bg4', 'bg5', 'text']
+        expected_colors = ['bg1', 'bg2', 'bg3', 'bg4', 'bg5', 'text', 'disabled']
         for color in expected_colors:
             self.assertIn(color, self.gui.colors)
         print("✓ All required colors defined")
@@ -253,6 +333,23 @@ class TestShieldAuditGUI(unittest.TestCase):
         # Check text color
         self.assertEqual(self.gui.colors['text'], '#2d2d2d')
         print("✓ Text color set to dark grey")
+    
+    def test_logout(self):
+        """Test logout functionality"""
+        print("\n[TEST] Testing logout...")
+        
+        self.gui.root.destroy = MagicMock()
+        
+        # Call logout
+        self.gui.logout()
+        
+        # Verify root was destroyed
+        self.gui.root.destroy.assert_called_once()
+        print("✓ GUI window destroyed")
+        
+        # Verify login window show_login was called
+        self.mock_login_window.show_login.assert_called_once()
+        print("✓ Login window shown")
     
     @patch('os.path.exists')
     @patch('os.makedirs')
@@ -292,16 +389,6 @@ class TestShieldAuditGUI(unittest.TestCase):
         # Verify open was called (at least once)
         self.assertGreater(mock_open.call_count, 0, "Expected open to be called")
         print(f"✓ {mock_open.call_count} file operations performed")
-        
-        # Get all the write calls
-        write_calls = []
-        for call_args in mock_open.return_value.write.call_args_list:
-            write_calls.append(call_args[0][0])
-        
-        # Verify content was written (if any writes occurred)
-        if write_calls:
-            written_content = "".join(str(w) for w in write_calls)
-            print("✓ Log content was written to files")
         
         # Verify each generation method was called
         mock_system.assert_called_once()
@@ -441,6 +528,10 @@ class TestShieldAuditGUI(unittest.TestCase):
         # Mock the after method
         self.gui.root.after = MagicMock()
         
+        # Mock update_status and update_alerts
+        self.gui.update_status = MagicMock()
+        self.gui.update_alerts = MagicMock()
+        
         # Reset server_status_label mock
         self.gui.server_status_label.config.reset_mock()
         
@@ -454,6 +545,60 @@ class TestShieldAuditGUI(unittest.TestCase):
         # Verify start_server_btn was disabled
         self.gui.start_server_btn.config.assert_called_with(state='disabled')
         print("✓ Start server button disabled")
+    
+    @patch('src.main_gui.SERVER_RUNNING', True)
+    @patch('src.main_gui.SERVER_PROCESS')
+    @patch('tkinter.messagebox.askyesno')
+    def test_stop_server(self, mock_askyesno, mock_server_process):
+        """Test server stop"""
+        print("\n[TEST] Testing server stop...")
+        
+        mock_askyesno.return_value = True
+        
+        # Mock update_status and update_alerts
+        self.gui.update_status = MagicMock()
+        self.gui.update_alerts = MagicMock()
+        
+        # Mock SERVER_RUNNING global
+        with patch('src.main_gui.SERVER_RUNNING', True):
+            with patch('src.main_gui.SERVER_PROCESS', mock_server_process):
+                # Call stop_server
+                self.gui.stop_server()
+        
+        # Verify askyesno was called
+        mock_askyesno.assert_called_once()
+        print("✓ Confirmation dialog shown")
+        
+        # Verify server status was updated
+        self.gui.server_status_label.config.assert_called_with(text="Server: Stopped", fg='red')
+        print("✓ Server status updated to 'Stopped'")
+        
+        # Verify start_server_btn was enabled
+        self.gui.start_server_btn.config.assert_called_with(state='normal')
+        print("✓ Start server button enabled")
+    
+    def test_check_server_status(self):
+        """Test server status check"""
+        print("\n[TEST] Testing server status check...")
+        
+        # Mock SERVER_RUNNING global
+        with patch('src.main_gui.SERVER_RUNNING', True):
+            self.gui.check_server_status()
+            
+            # Verify server status label updated
+            self.gui.server_status_label.config.assert_called_with(text="Server: Running", fg='green')
+            print("✓ Server status shown as Running")
+        
+        # Reset mock
+        self.gui.server_status_label.config.reset_mock()
+        
+        # Test with server stopped
+        with patch('src.main_gui.SERVER_RUNNING', False):
+            self.gui.check_server_status()
+            
+            # Verify server status label updated
+            self.gui.server_status_label.config.assert_called_with(text="Server: Stopped", fg='red')
+            print("✓ Server status shown as Stopped")
 
 def run_gui_tests():
     """Run all GUI tests"""
@@ -464,7 +609,8 @@ def run_gui_tests():
         'test_initialization',
         'test_successful_login',
         'test_failed_login_wrong_password',
-        'test_failed_login_nonexistent_user'
+        'test_failed_login_nonexistent_user',
+        'test_show_login'
     ]
     
     for method in login_test_methods:
@@ -474,13 +620,16 @@ def run_gui_tests():
     gui_test_methods = [
         'test_initialization',
         'test_color_scheme',
+        'test_logout',
         'test_setup_log_files',
         'test_log_generation',
         'test_update_status',
         'test_update_alerts',
         'test_toggle_monitoring_without_file',
         'test_search_logs_empty',
-        'test_start_server'
+        'test_start_server',
+        'test_stop_server',
+        'test_check_server_status'
     ]
     
     for method in gui_test_methods:
