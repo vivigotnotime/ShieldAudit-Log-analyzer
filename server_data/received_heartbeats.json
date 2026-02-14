@@ -1,118 +1,1117 @@
 {
-  "security_events.txt": {
-    "initial_hash": "a56d1d9e89a041310fe216e9573469921958f62b2b4f512235298491bda4f49c",
+  "test_log.txt": {
+    "initial_hash": "abc123def456",
     "heartbeats": [
       {
-        "timestamp": "2026-02-13T21:15:27.293256",
-        "hash": "a56d1d9e89a041310fe216e9573469921958f62b2b4f512235298491bda4f49c",
-        "client": "127.0.0.1:54768"
+        "timestamp": 1770998947.0264113,
+        "hash": "abc123def456",
+        "client": "127.0.0.1:53983"
       },
       {
-        "timestamp": "2026-02-13T21:15:32.294630",
-        "hash": "a56d1d9e89a041310fe216e9573469921958f62b2b4f512235298491bda4f49c",
-        "client": "127.0.0.1:54768"
+        "timestamp": 1770998949.0527823,
+        "hash": "original_hash_123",
+        "client": "127.0.0.1:53984"
       },
       {
-        "timestamp": "2026-02-13T21:15:37.296949",
-        "hash": "a56d1d9e89a041310fe216e9573469921958f62b2b4f512235298491bda4f49c",
-        "client": "127.0.0.1:54768"
+        "timestamp": 1770998949.5534053,
+        "hash": "tampered_hash_456",
+        "client": "127.0.0.1:53984"
       },
       {
-        "timestamp": "2026-02-13T21:15:42.298266",
-        "hash": "a56d1d9e89a041310fe216e9573469921958f62b2b4f512235298491bda4f49c",
-        "client": "127.0.0.1:54768"
+        "timestamp": 1770999637.4960973,
+        "hash": "abc123def456",
+        "client": "127.0.0.1:63872"
       },
       {
-        "timestamp": "2026-02-13T21:15:47.299799",
-        "hash": "a56d1d9e89a041310fe216e9573469921958f62b2b4f512235298491bda4f49c",
-        "client": "127.0.0.1:54768"
+        "timestamp": 1770999639.5243888,
+        "hash": "original_hash_123",
+        "client": "127.0.0.1:63873"
       },
       {
-        "timestamp": "2026-02-13T21:15:52.301018",
-        "hash": "a56d1d9e89a041310fe216e9573469921958f62b2b4f512235298491bda4f49c",
-        "client": "127.0.0.1:54768"
-      },
-      {
-        "timestamp": "2026-02-13T21:15:57.303172",
-        "hash": "a56d1d9e89a041310fe216e9573469921958f62b2b4f512235298491bda4f49c",
-        "client": "127.0.0.1:54768"
-      },
-      {
-        "timestamp": "2026-02-13T21:16:02.304991",
-        "hash": "3bad10a69a0466c7be6bc2357cf168f20a638574aa779b772edb7a74102b1352",
-        "client": "127.0.0.1:54768"
-      },
-      {
-        "timestamp": "2026-02-13T21:16:07.308863",
-        "hash": "3bad10a69a0466c7be6bc2357cf168f20a638574aa779b772edb7a74102b1352",
-        "client": "127.0.0.1:54768"
-      },
-      {
-        "timestamp": "2026-02-13T21:16:12.310922",
-        "hash": "3bad10a69a0466c7be6bc2357cf168f20a638574aa779b772edb7a74102b1352",
-        "client": "127.0.0.1:54768"
-      },
-      {
-        "timestamp": "2026-02-13T21:16:17.314451",
-        "hash": "3bad10a69a0466c7be6bc2357cf168f20a638574aa779b772edb7a74102b1352",
-        "client": "127.0.0.1:54768"
-      },
-      {
-        "timestamp": "2026-02-13T21:16:22.315977",
-        "hash": "3bad10a69a0466c7be6bc2357cf168f20a638574aa779b772edb7a74102b1352",
-        "client": "127.0.0.1:54768"
-      },
-      {
-        "timestamp": "2026-02-13T21:16:27.317673",
-        "hash": "3bad10a69a0466c7be6bc2357cf168f20a638574aa779b772edb7a74102b1352",
-        "client": "127.0.0.1:54768"
-      },
-      {
-        "timestamp": "2026-02-13T21:16:32.319259",
-        "hash": "3bad10a69a0466c7be6bc2357cf168f20a638574aa779b772edb7a74102b1352",
-        "client": "127.0.0.1:54768"
-      },
-      {
-        "timestamp": "2026-02-13T21:16:37.320675",
-        "hash": "3bad10a69a0466c7be6bc2357cf168f20a638574aa779b772edb7a74102b1352",
-        "client": "127.0.0.1:54768"
-      },
-      {
-        "timestamp": "2026-02-13T21:16:42.322692",
-        "hash": "3bad10a69a0466c7be6bc2357cf168f20a638574aa779b772edb7a74102b1352",
-        "client": "127.0.0.1:54768"
-      },
-      {
-        "timestamp": "2026-02-13T21:16:47.324414",
-        "hash": "3bad10a69a0466c7be6bc2357cf168f20a638574aa779b772edb7a74102b1352",
-        "client": "127.0.0.1:54768"
-      },
-      {
-        "timestamp": "2026-02-13T21:16:52.326226",
-        "hash": "3bad10a69a0466c7be6bc2357cf168f20a638574aa779b772edb7a74102b1352",
-        "client": "127.0.0.1:54768"
-      },
-      {
-        "timestamp": "2026-02-13T21:16:57.327499",
-        "hash": "3bad10a69a0466c7be6bc2357cf168f20a638574aa779b772edb7a74102b1352",
-        "client": "127.0.0.1:54768"
-      },
-      {
-        "timestamp": "2026-02-13T21:17:02.329477",
-        "hash": "3bad10a69a0466c7be6bc2357cf168f20a638574aa779b772edb7a74102b1352",
-        "client": "127.0.0.1:54768"
+        "timestamp": 1770999640.0253417,
+        "hash": "tampered_hash_456",
+        "client": "127.0.0.1:63873"
       }
     ],
     "alerts": [
       {
-        "client_id": "127.0.0.1:54768",
-        "log_file": "security_events.txt",
-        "expected_hash": "a56d1d9e89a041310fe216e9573469921958f62b2b4f512235298491bda4f49c",
-        "received_hash": "3bad10a69a0466c7be6bc2357cf168f20a638574aa779b772edb7a74102b1352",
-        "timestamp": "2026-02-13T21:16:02.305383",
+        "client_id": "127.0.0.1:53984",
+        "log_file": "test_log.txt",
+        "expected_hash": "abc123def456",
+        "received_hash": "original_hash_123",
+        "timestamp": "2026-02-13T21:54:09.053090",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:53984",
+        "log_file": "test_log.txt",
+        "expected_hash": "original_hash_123",
+        "received_hash": "tampered_hash_456",
+        "timestamp": "2026-02-13T21:54:09.553777",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:63872",
+        "log_file": "test_log.txt",
+        "expected_hash": "tampered_hash_456",
+        "received_hash": "abc123def456",
+        "timestamp": "2026-02-13T22:05:37.496703",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:63873",
+        "log_file": "test_log.txt",
+        "expected_hash": "abc123def456",
+        "received_hash": "original_hash_123",
+        "timestamp": "2026-02-13T22:05:39.525142",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:63873",
+        "log_file": "test_log.txt",
+        "expected_hash": "original_hash_123",
+        "received_hash": "tampered_hash_456",
+        "timestamp": "2026-02-13T22:05:40.025652",
         "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
       }
     ],
-    "last_hash": "3bad10a69a0466c7be6bc2357cf168f20a638574aa779b772edb7a74102b1352"
+    "last_hash": "tampered_hash_456"
+  },
+  "client_0_log.txt": {
+    "initial_hash": "hash_0_123",
+    "heartbeats": [
+      {
+        "timestamp": 1770998951.5798197,
+        "hash": "hash_0_123",
+        "client": "127.0.0.1:53987"
+      },
+      {
+        "timestamp": 1770999642.0498734,
+        "hash": "hash_0_123",
+        "client": "127.0.0.1:63874"
+      },
+      {
+        "timestamp": 1770999699.3554032,
+        "hash": "hash_0_1770999699.3553894",
+        "client": "127.0.0.1:63887"
+      },
+      {
+        "timestamp": 1770999813.812894,
+        "hash": "hash_0_1770999813.8128707",
+        "client": "127.0.0.1:59543"
+      },
+      {
+        "timestamp": 1771000294.420487,
+        "hash": "hash_0_1771000294.4204755",
+        "client": "127.0.0.1:64124"
+      },
+      {
+        "timestamp": 1771000582.0790334,
+        "hash": "hash_0_1771000582.0790226",
+        "client": "127.0.0.1:57464"
+      },
+      {
+        "timestamp": 1771000829.7524478,
+        "hash": "hash_0_1771000829.7524297",
+        "client": "127.0.0.1:55302"
+      },
+      {
+        "timestamp": 1771001160.778778,
+        "hash": "hash_0_1771001160.7787607",
+        "client": "127.0.0.1:52367"
+      },
+      {
+        "timestamp": 1771001704.452896,
+        "hash": "hash_0_1771001704.452884",
+        "client": "127.0.0.1:52935"
+      }
+    ],
+    "alerts": [
+      {
+        "client_id": "127.0.0.1:63887",
+        "log_file": "client_0_log.txt",
+        "expected_hash": "hash_0_123",
+        "received_hash": "hash_0_1770999699.3553894",
+        "timestamp": "2026-02-13T22:06:39.355855",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:59543",
+        "log_file": "client_0_log.txt",
+        "expected_hash": "hash_0_1770999699.3553894",
+        "received_hash": "hash_0_1770999813.8128707",
+        "timestamp": "2026-02-13T22:08:33.813117",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:64124",
+        "log_file": "client_0_log.txt",
+        "expected_hash": "hash_0_1770999813.8128707",
+        "received_hash": "hash_0_1771000294.4204755",
+        "timestamp": "2026-02-13T22:16:34.421098",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:57464",
+        "log_file": "client_0_log.txt",
+        "expected_hash": "hash_0_1771000294.4204755",
+        "received_hash": "hash_0_1771000582.0790226",
+        "timestamp": "2026-02-13T22:21:22.079745",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:55302",
+        "log_file": "client_0_log.txt",
+        "expected_hash": "hash_0_1771000582.0790226",
+        "received_hash": "hash_0_1771000829.7524297",
+        "timestamp": "2026-02-13T22:25:29.752731",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:52367",
+        "log_file": "client_0_log.txt",
+        "expected_hash": "hash_0_1771000829.7524297",
+        "received_hash": "hash_0_1771001160.7787607",
+        "timestamp": "2026-02-13T22:31:00.779108",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:52935",
+        "log_file": "client_0_log.txt",
+        "expected_hash": "hash_0_1771001160.7787607",
+        "received_hash": "hash_0_1771001704.452884",
+        "timestamp": "2026-02-13T22:40:04.453262",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      }
+    ],
+    "last_hash": "hash_0_1771001704.452884"
+  },
+  "client_1_log.txt": {
+    "initial_hash": "hash_1_123",
+    "heartbeats": [
+      {
+        "timestamp": 1770998951.7810202,
+        "hash": "hash_1_123",
+        "client": "127.0.0.1:53988"
+      },
+      {
+        "timestamp": 1770999642.2513673,
+        "hash": "hash_1_123",
+        "client": "127.0.0.1:63875"
+      },
+      {
+        "timestamp": 1770999699.5572686,
+        "hash": "hash_1_1770999699.5572546",
+        "client": "127.0.0.1:63888"
+      },
+      {
+        "timestamp": 1770999814.0142436,
+        "hash": "hash_1_1770999814.0142267",
+        "client": "127.0.0.1:59544"
+      },
+      {
+        "timestamp": 1771000294.6379867,
+        "hash": "hash_1_1771000294.6379764",
+        "client": "127.0.0.1:64125"
+      },
+      {
+        "timestamp": 1771000582.2916296,
+        "hash": "hash_1_1771000582.2916195",
+        "client": "127.0.0.1:57465"
+      },
+      {
+        "timestamp": 1771000829.95399,
+        "hash": "hash_1_1771000829.9539773",
+        "client": "127.0.0.1:55303"
+      },
+      {
+        "timestamp": 1771001160.9808884,
+        "hash": "hash_1_1771001160.980872",
+        "client": "127.0.0.1:52368"
+      },
+      {
+        "timestamp": 1771001704.655125,
+        "hash": "hash_1_1771001704.6551118",
+        "client": "127.0.0.1:52936"
+      }
+    ],
+    "alerts": [
+      {
+        "client_id": "127.0.0.1:63888",
+        "log_file": "client_1_log.txt",
+        "expected_hash": "hash_1_123",
+        "received_hash": "hash_1_1770999699.5572546",
+        "timestamp": "2026-02-13T22:06:39.557944",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:59544",
+        "log_file": "client_1_log.txt",
+        "expected_hash": "hash_1_1770999699.5572546",
+        "received_hash": "hash_1_1770999814.0142267",
+        "timestamp": "2026-02-13T22:08:34.015361",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:64125",
+        "log_file": "client_1_log.txt",
+        "expected_hash": "hash_1_1770999814.0142267",
+        "received_hash": "hash_1_1771000294.6379764",
+        "timestamp": "2026-02-13T22:16:34.638289",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:57465",
+        "log_file": "client_1_log.txt",
+        "expected_hash": "hash_1_1771000294.6379764",
+        "received_hash": "hash_1_1771000582.2916195",
+        "timestamp": "2026-02-13T22:21:22.291945",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:55303",
+        "log_file": "client_1_log.txt",
+        "expected_hash": "hash_1_1771000582.2916195",
+        "received_hash": "hash_1_1771000829.9539773",
+        "timestamp": "2026-02-13T22:25:29.954833",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:52368",
+        "log_file": "client_1_log.txt",
+        "expected_hash": "hash_1_1771000829.9539773",
+        "received_hash": "hash_1_1771001160.980872",
+        "timestamp": "2026-02-13T22:31:00.981905",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:52936",
+        "log_file": "client_1_log.txt",
+        "expected_hash": "hash_1_1771001160.980872",
+        "received_hash": "hash_1_1771001704.6551118",
+        "timestamp": "2026-02-13T22:40:04.655850",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      }
+    ],
+    "last_hash": "hash_1_1771001704.6551118"
+  },
+  "client_2_log.txt": {
+    "initial_hash": "hash_2_123",
+    "heartbeats": [
+      {
+        "timestamp": 1770998951.9823632,
+        "hash": "hash_2_123",
+        "client": "127.0.0.1:53989"
+      },
+      {
+        "timestamp": 1770999642.453128,
+        "hash": "hash_2_123",
+        "client": "127.0.0.1:63876"
+      },
+      {
+        "timestamp": 1770999699.7583892,
+        "hash": "hash_2_1770999699.7583761",
+        "client": "127.0.0.1:63889"
+      },
+      {
+        "timestamp": 1770999814.2414732,
+        "hash": "hash_2_1770999814.2414541",
+        "client": "127.0.0.1:59545"
+      },
+      {
+        "timestamp": 1771000294.8393524,
+        "hash": "hash_2_1771000294.8393397",
+        "client": "127.0.0.1:64126"
+      },
+      {
+        "timestamp": 1771000582.4933789,
+        "hash": "hash_2_1771000582.493368",
+        "client": "127.0.0.1:57466"
+      },
+      {
+        "timestamp": 1771000830.1721733,
+        "hash": "hash_2_1771000830.172153",
+        "client": "127.0.0.1:55304"
+      },
+      {
+        "timestamp": 1771001161.1833704,
+        "hash": "hash_2_1771001161.1833475",
+        "client": "127.0.0.1:52369"
+      },
+      {
+        "timestamp": 1771001704.8571115,
+        "hash": "hash_2_1771001704.8570929",
+        "client": "127.0.0.1:52937"
+      }
+    ],
+    "alerts": [
+      {
+        "client_id": "127.0.0.1:63889",
+        "log_file": "client_2_log.txt",
+        "expected_hash": "hash_2_123",
+        "received_hash": "hash_2_1770999699.7583761",
+        "timestamp": "2026-02-13T22:06:39.759084",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:59545",
+        "log_file": "client_2_log.txt",
+        "expected_hash": "hash_2_1770999699.7583761",
+        "received_hash": "hash_2_1770999814.2414541",
+        "timestamp": "2026-02-13T22:08:34.241791",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:64126",
+        "log_file": "client_2_log.txt",
+        "expected_hash": "hash_2_1770999814.2414541",
+        "received_hash": "hash_2_1771000294.8393397",
+        "timestamp": "2026-02-13T22:16:34.839994",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:57466",
+        "log_file": "client_2_log.txt",
+        "expected_hash": "hash_2_1771000294.8393397",
+        "received_hash": "hash_2_1771000582.493368",
+        "timestamp": "2026-02-13T22:21:22.493901",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:55304",
+        "log_file": "client_2_log.txt",
+        "expected_hash": "hash_2_1771000582.493368",
+        "received_hash": "hash_2_1771000830.172153",
+        "timestamp": "2026-02-13T22:25:30.172664",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:52369",
+        "log_file": "client_2_log.txt",
+        "expected_hash": "hash_2_1771000830.172153",
+        "received_hash": "hash_2_1771001161.1833475",
+        "timestamp": "2026-02-13T22:31:01.184231",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:52937",
+        "log_file": "client_2_log.txt",
+        "expected_hash": "hash_2_1771001161.1833475",
+        "received_hash": "hash_2_1771001704.8570929",
+        "timestamp": "2026-02-13T22:40:04.858101",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      }
+    ],
+    "last_hash": "hash_2_1771001704.8570929"
+  },
+  "unknown": {
+    "initial_hash": null,
+    "heartbeats": [
+      {
+        "timestamp": "2026-02-13T21:54:17.723186",
+        "hash": null,
+        "client": "127.0.0.1:53994"
+      },
+      {
+        "timestamp": "2026-02-13T22:05:48.230350",
+        "hash": null,
+        "client": "127.0.0.1:63878"
+      }
+    ],
+    "alerts": [],
+    "last_hash": null
+  },
+  "persistence_test.txt": {
+    "initial_hash": "hash_0",
+    "heartbeats": [
+      {
+        "timestamp": 1770998959.7523315,
+        "hash": "hash_0",
+        "client": "127.0.0.1:53997"
+      },
+      {
+        "timestamp": 1770998960.8530629,
+        "hash": "hash_1",
+        "client": "127.0.0.1:53997"
+      },
+      {
+        "timestamp": 1770998961.9535663,
+        "hash": "hash_2",
+        "client": "127.0.0.1:53997"
+      },
+      {
+        "timestamp": 1770998963.0543716,
+        "hash": "hash_3",
+        "client": "127.0.0.1:53997"
+      },
+      {
+        "timestamp": 1770998964.1549456,
+        "hash": "hash_4",
+        "client": "127.0.0.1:53997"
+      },
+      {
+        "timestamp": 1770999650.2557814,
+        "hash": "hash_0",
+        "client": "127.0.0.1:63879"
+      },
+      {
+        "timestamp": 1770999651.3561356,
+        "hash": "hash_1",
+        "client": "127.0.0.1:63879"
+      },
+      {
+        "timestamp": 1770999652.4569504,
+        "hash": "hash_2",
+        "client": "127.0.0.1:63879"
+      },
+      {
+        "timestamp": 1770999653.5577738,
+        "hash": "hash_3",
+        "client": "127.0.0.1:63879"
+      },
+      {
+        "timestamp": 1770999654.658688,
+        "hash": "hash_4",
+        "client": "127.0.0.1:63879"
+      }
+    ],
+    "alerts": [
+      {
+        "client_id": "127.0.0.1:53997",
+        "log_file": "persistence_test.txt",
+        "expected_hash": "hash_0",
+        "received_hash": "hash_1",
+        "timestamp": "2026-02-13T21:54:19.853359",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:53997",
+        "log_file": "persistence_test.txt",
+        "expected_hash": "hash_1",
+        "received_hash": "hash_2",
+        "timestamp": "2026-02-13T21:54:19.953855",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:53997",
+        "log_file": "persistence_test.txt",
+        "expected_hash": "hash_2",
+        "received_hash": "hash_3",
+        "timestamp": "2026-02-13T21:54:20.054785",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:53997",
+        "log_file": "persistence_test.txt",
+        "expected_hash": "hash_3",
+        "received_hash": "hash_4",
+        "timestamp": "2026-02-13T21:54:20.155276",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:63879",
+        "log_file": "persistence_test.txt",
+        "expected_hash": "hash_4",
+        "received_hash": "hash_0",
+        "timestamp": "2026-02-13T22:05:50.256111",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:63879",
+        "log_file": "persistence_test.txt",
+        "expected_hash": "hash_0",
+        "received_hash": "hash_1",
+        "timestamp": "2026-02-13T22:05:50.356442",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:63879",
+        "log_file": "persistence_test.txt",
+        "expected_hash": "hash_1",
+        "received_hash": "hash_2",
+        "timestamp": "2026-02-13T22:05:50.457193",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:63879",
+        "log_file": "persistence_test.txt",
+        "expected_hash": "hash_2",
+        "received_hash": "hash_3",
+        "timestamp": "2026-02-13T22:05:50.558020",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:63879",
+        "log_file": "persistence_test.txt",
+        "expected_hash": "hash_3",
+        "received_hash": "hash_4",
+        "timestamp": "2026-02-13T22:05:50.659079",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      }
+    ],
+    "last_hash": "hash_4"
+  },
+  "integration_test.log": {
+    "initial_hash": "0b4dc1ceb17a5a9c9b051c57803beef6be5dd579e6318924ee97819a137285cc",
+    "heartbeats": [
+      {
+        "timestamp": 1770999693.3221557,
+        "hash": "0b4dc1ceb17a5a9c9b051c57803beef6be5dd579e6318924ee97819a137285cc",
+        "client": "127.0.0.1:63882"
+      },
+      {
+        "timestamp": 1770999695.3320355,
+        "hash": "0b4dc1ceb17a5a9c9b051c57803beef6be5dd579e6318924ee97819a137285cc",
+        "client": "127.0.0.1:63883"
+      },
+      {
+        "timestamp": 1770999695.8361304,
+        "hash": "b560972800b87e2c40f9d7b9df0e323bddd027ffdc88d9b4dee17eaf5d64db41",
+        "client": "127.0.0.1:63883"
+      },
+      {
+        "timestamp": 1770999807.7347627,
+        "hash": "0b4dc1ceb17a5a9c9b051c57803beef6be5dd579e6318924ee97819a137285cc",
+        "client": "127.0.0.1:59539"
+      },
+      {
+        "timestamp": 1770999809.7598844,
+        "hash": "0b4dc1ceb17a5a9c9b051c57803beef6be5dd579e6318924ee97819a137285cc",
+        "client": "127.0.0.1:59540"
+      },
+      {
+        "timestamp": 1770999810.2639408,
+        "hash": "b560972800b87e2c40f9d7b9df0e323bddd027ffdc88d9b4dee17eaf5d64db41",
+        "client": "127.0.0.1:59540"
+      },
+      {
+        "timestamp": 1771000288.3698728,
+        "hash": "0b4dc1ceb17a5a9c9b051c57803beef6be5dd579e6318924ee97819a137285cc",
+        "client": "127.0.0.1:64119"
+      },
+      {
+        "timestamp": 1771000290.3811996,
+        "hash": "0b4dc1ceb17a5a9c9b051c57803beef6be5dd579e6318924ee97819a137285cc",
+        "client": "127.0.0.1:64121"
+      },
+      {
+        "timestamp": 1771000290.8848166,
+        "hash": "b560972800b87e2c40f9d7b9df0e323bddd027ffdc88d9b4dee17eaf5d64db41",
+        "client": "127.0.0.1:64121"
+      },
+      {
+        "timestamp": 1771000576.023653,
+        "hash": "0b4dc1ceb17a5a9c9b051c57803beef6be5dd579e6318924ee97819a137285cc",
+        "client": "127.0.0.1:58958"
+      },
+      {
+        "timestamp": 1771000578.0366924,
+        "hash": "0b4dc1ceb17a5a9c9b051c57803beef6be5dd579e6318924ee97819a137285cc",
+        "client": "127.0.0.1:58959"
+      },
+      {
+        "timestamp": 1771000578.5418262,
+        "hash": "b560972800b87e2c40f9d7b9df0e323bddd027ffdc88d9b4dee17eaf5d64db41",
+        "client": "127.0.0.1:58959"
+      },
+      {
+        "timestamp": 1771000823.681557,
+        "hash": "0b4dc1ceb17a5a9c9b051c57803beef6be5dd579e6318924ee97819a137285cc",
+        "client": "127.0.0.1:55298"
+      },
+      {
+        "timestamp": 1771000825.6959472,
+        "hash": "0b4dc1ceb17a5a9c9b051c57803beef6be5dd579e6318924ee97819a137285cc",
+        "client": "127.0.0.1:55299"
+      },
+      {
+        "timestamp": 1771000826.1999457,
+        "hash": "b560972800b87e2c40f9d7b9df0e323bddd027ffdc88d9b4dee17eaf5d64db41",
+        "client": "127.0.0.1:55299"
+      },
+      {
+        "timestamp": 1771001154.7210896,
+        "hash": "0b4dc1ceb17a5a9c9b051c57803beef6be5dd579e6318924ee97819a137285cc",
+        "client": "127.0.0.1:52363"
+      },
+      {
+        "timestamp": 1771001156.7504532,
+        "hash": "0b4dc1ceb17a5a9c9b051c57803beef6be5dd579e6318924ee97819a137285cc",
+        "client": "127.0.0.1:52364"
+      },
+      {
+        "timestamp": 1771001157.254672,
+        "hash": "b560972800b87e2c40f9d7b9df0e323bddd027ffdc88d9b4dee17eaf5d64db41",
+        "client": "127.0.0.1:52364"
+      },
+      {
+        "timestamp": 1771001698.4128783,
+        "hash": "0b4dc1ceb17a5a9c9b051c57803beef6be5dd579e6318924ee97819a137285cc",
+        "client": "127.0.0.1:52931"
+      },
+      {
+        "timestamp": 1771001700.4254725,
+        "hash": "0b4dc1ceb17a5a9c9b051c57803beef6be5dd579e6318924ee97819a137285cc",
+        "client": "127.0.0.1:52932"
+      },
+      {
+        "timestamp": 1771001700.928976,
+        "hash": "b560972800b87e2c40f9d7b9df0e323bddd027ffdc88d9b4dee17eaf5d64db41",
+        "client": "127.0.0.1:52932"
+      }
+    ],
+    "alerts": [
+      {
+        "client_id": "127.0.0.1:63883",
+        "log_file": "integration_test.log",
+        "expected_hash": "0b4dc1ceb17a5a9c9b051c57803beef6be5dd579e6318924ee97819a137285cc",
+        "received_hash": "b560972800b87e2c40f9d7b9df0e323bddd027ffdc88d9b4dee17eaf5d64db41",
+        "timestamp": "2026-02-13T22:06:35.836366",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:59539",
+        "log_file": "integration_test.log",
+        "expected_hash": "b560972800b87e2c40f9d7b9df0e323bddd027ffdc88d9b4dee17eaf5d64db41",
+        "received_hash": "0b4dc1ceb17a5a9c9b051c57803beef6be5dd579e6318924ee97819a137285cc",
+        "timestamp": "2026-02-13T22:08:27.735047",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:59540",
+        "log_file": "integration_test.log",
+        "expected_hash": "0b4dc1ceb17a5a9c9b051c57803beef6be5dd579e6318924ee97819a137285cc",
+        "received_hash": "b560972800b87e2c40f9d7b9df0e323bddd027ffdc88d9b4dee17eaf5d64db41",
+        "timestamp": "2026-02-13T22:08:30.264168",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:64119",
+        "log_file": "integration_test.log",
+        "expected_hash": "b560972800b87e2c40f9d7b9df0e323bddd027ffdc88d9b4dee17eaf5d64db41",
+        "received_hash": "0b4dc1ceb17a5a9c9b051c57803beef6be5dd579e6318924ee97819a137285cc",
+        "timestamp": "2026-02-13T22:16:28.370083",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:64121",
+        "log_file": "integration_test.log",
+        "expected_hash": "0b4dc1ceb17a5a9c9b051c57803beef6be5dd579e6318924ee97819a137285cc",
+        "received_hash": "b560972800b87e2c40f9d7b9df0e323bddd027ffdc88d9b4dee17eaf5d64db41",
+        "timestamp": "2026-02-13T22:16:30.885025",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:58958",
+        "log_file": "integration_test.log",
+        "expected_hash": "b560972800b87e2c40f9d7b9df0e323bddd027ffdc88d9b4dee17eaf5d64db41",
+        "received_hash": "0b4dc1ceb17a5a9c9b051c57803beef6be5dd579e6318924ee97819a137285cc",
+        "timestamp": "2026-02-13T22:21:16.023824",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:58959",
+        "log_file": "integration_test.log",
+        "expected_hash": "0b4dc1ceb17a5a9c9b051c57803beef6be5dd579e6318924ee97819a137285cc",
+        "received_hash": "b560972800b87e2c40f9d7b9df0e323bddd027ffdc88d9b4dee17eaf5d64db41",
+        "timestamp": "2026-02-13T22:21:18.542109",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:55298",
+        "log_file": "integration_test.log",
+        "expected_hash": "b560972800b87e2c40f9d7b9df0e323bddd027ffdc88d9b4dee17eaf5d64db41",
+        "received_hash": "0b4dc1ceb17a5a9c9b051c57803beef6be5dd579e6318924ee97819a137285cc",
+        "timestamp": "2026-02-13T22:25:23.681773",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:55299",
+        "log_file": "integration_test.log",
+        "expected_hash": "0b4dc1ceb17a5a9c9b051c57803beef6be5dd579e6318924ee97819a137285cc",
+        "received_hash": "b560972800b87e2c40f9d7b9df0e323bddd027ffdc88d9b4dee17eaf5d64db41",
+        "timestamp": "2026-02-13T22:25:26.200180",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:52363",
+        "log_file": "integration_test.log",
+        "expected_hash": "b560972800b87e2c40f9d7b9df0e323bddd027ffdc88d9b4dee17eaf5d64db41",
+        "received_hash": "0b4dc1ceb17a5a9c9b051c57803beef6be5dd579e6318924ee97819a137285cc",
+        "timestamp": "2026-02-13T22:30:54.721287",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:52364",
+        "log_file": "integration_test.log",
+        "expected_hash": "0b4dc1ceb17a5a9c9b051c57803beef6be5dd579e6318924ee97819a137285cc",
+        "received_hash": "b560972800b87e2c40f9d7b9df0e323bddd027ffdc88d9b4dee17eaf5d64db41",
+        "timestamp": "2026-02-13T22:30:57.254927",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:52931",
+        "log_file": "integration_test.log",
+        "expected_hash": "b560972800b87e2c40f9d7b9df0e323bddd027ffdc88d9b4dee17eaf5d64db41",
+        "received_hash": "0b4dc1ceb17a5a9c9b051c57803beef6be5dd579e6318924ee97819a137285cc",
+        "timestamp": "2026-02-13T22:39:58.413102",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:52932",
+        "log_file": "integration_test.log",
+        "expected_hash": "0b4dc1ceb17a5a9c9b051c57803beef6be5dd579e6318924ee97819a137285cc",
+        "received_hash": "b560972800b87e2c40f9d7b9df0e323bddd027ffdc88d9b4dee17eaf5d64db41",
+        "timestamp": "2026-02-13T22:40:00.929204",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      }
+    ],
+    "last_hash": "b560972800b87e2c40f9d7b9df0e323bddd027ffdc88d9b4dee17eaf5d64db41"
+  },
+  "persistence_test.log": {
+    "initial_hash": "hash_0",
+    "heartbeats": [
+      {
+        "timestamp": 1770999703.4710581,
+        "hash": "hash_0",
+        "client": "127.0.0.1:63890"
+      },
+      {
+        "timestamp": 1770999704.6714804,
+        "hash": "hash_1",
+        "client": "127.0.0.1:63890"
+      },
+      {
+        "timestamp": 1770999705.8722694,
+        "hash": "hash_2",
+        "client": "127.0.0.1:63890"
+      },
+      {
+        "timestamp": 1770999817.9545715,
+        "hash": "hash_0",
+        "client": "127.0.0.1:59546"
+      },
+      {
+        "timestamp": 1770999819.1554096,
+        "hash": "hash_1",
+        "client": "127.0.0.1:59546"
+      },
+      {
+        "timestamp": 1770999820.3560963,
+        "hash": "hash_2",
+        "client": "127.0.0.1:59546"
+      },
+      {
+        "timestamp": 1771000298.5535913,
+        "hash": "hash_0",
+        "client": "127.0.0.1:64127"
+      },
+      {
+        "timestamp": 1771000299.7539034,
+        "hash": "hash_1",
+        "client": "127.0.0.1:64127"
+      },
+      {
+        "timestamp": 1771000300.9545295,
+        "hash": "hash_2",
+        "client": "127.0.0.1:64127"
+      },
+      {
+        "timestamp": 1771000586.2076228,
+        "hash": "hash_0",
+        "client": "127.0.0.1:57467"
+      },
+      {
+        "timestamp": 1771000587.408433,
+        "hash": "hash_1",
+        "client": "127.0.0.1:57467"
+      },
+      {
+        "timestamp": 1771000588.6091962,
+        "hash": "hash_2",
+        "client": "127.0.0.1:57467"
+      },
+      {
+        "timestamp": 1771000833.8896387,
+        "hash": "hash_0",
+        "client": "127.0.0.1:55305"
+      },
+      {
+        "timestamp": 1771000835.0903988,
+        "hash": "hash_1",
+        "client": "127.0.0.1:55305"
+      },
+      {
+        "timestamp": 1771000836.2914717,
+        "hash": "hash_2",
+        "client": "127.0.0.1:55305"
+      },
+      {
+        "timestamp": 1771001164.8991914,
+        "hash": "hash_0",
+        "client": "127.0.0.1:52370"
+      },
+      {
+        "timestamp": 1771001166.1000814,
+        "hash": "hash_1",
+        "client": "127.0.0.1:52370"
+      },
+      {
+        "timestamp": 1771001167.3011076,
+        "hash": "hash_2",
+        "client": "127.0.0.1:52370"
+      },
+      {
+        "timestamp": 1771001708.5870383,
+        "hash": "hash_0",
+        "client": "127.0.0.1:52938"
+      },
+      {
+        "timestamp": 1771001709.7883003,
+        "hash": "hash_1",
+        "client": "127.0.0.1:52938"
+      },
+      {
+        "timestamp": 1771001710.9897742,
+        "hash": "hash_2",
+        "client": "127.0.0.1:52938"
+      }
+    ],
+    "alerts": [
+      {
+        "client_id": "127.0.0.1:63890",
+        "log_file": "persistence_test.log",
+        "expected_hash": "hash_0",
+        "received_hash": "hash_1",
+        "timestamp": "2026-02-13T22:06:43.671830",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:63890",
+        "log_file": "persistence_test.log",
+        "expected_hash": "hash_1",
+        "received_hash": "hash_2",
+        "timestamp": "2026-02-13T22:06:43.872636",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:59546",
+        "log_file": "persistence_test.log",
+        "expected_hash": "hash_2",
+        "received_hash": "hash_0",
+        "timestamp": "2026-02-13T22:08:37.954762",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:59546",
+        "log_file": "persistence_test.log",
+        "expected_hash": "hash_0",
+        "received_hash": "hash_1",
+        "timestamp": "2026-02-13T22:08:38.155762",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:59546",
+        "log_file": "persistence_test.log",
+        "expected_hash": "hash_1",
+        "received_hash": "hash_2",
+        "timestamp": "2026-02-13T22:08:38.356470",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:64127",
+        "log_file": "persistence_test.log",
+        "expected_hash": "hash_2",
+        "received_hash": "hash_0",
+        "timestamp": "2026-02-13T22:16:38.553891",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:64127",
+        "log_file": "persistence_test.log",
+        "expected_hash": "hash_0",
+        "received_hash": "hash_1",
+        "timestamp": "2026-02-13T22:16:38.754251",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:64127",
+        "log_file": "persistence_test.log",
+        "expected_hash": "hash_1",
+        "received_hash": "hash_2",
+        "timestamp": "2026-02-13T22:16:38.954832",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:57467",
+        "log_file": "persistence_test.log",
+        "expected_hash": "hash_2",
+        "received_hash": "hash_0",
+        "timestamp": "2026-02-13T22:21:26.208204",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:57467",
+        "log_file": "persistence_test.log",
+        "expected_hash": "hash_0",
+        "received_hash": "hash_1",
+        "timestamp": "2026-02-13T22:21:26.408856",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:57467",
+        "log_file": "persistence_test.log",
+        "expected_hash": "hash_1",
+        "received_hash": "hash_2",
+        "timestamp": "2026-02-13T22:21:26.609574",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:55305",
+        "log_file": "persistence_test.log",
+        "expected_hash": "hash_2",
+        "received_hash": "hash_0",
+        "timestamp": "2026-02-13T22:25:33.889864",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:55305",
+        "log_file": "persistence_test.log",
+        "expected_hash": "hash_0",
+        "received_hash": "hash_1",
+        "timestamp": "2026-02-13T22:25:34.090659",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:55305",
+        "log_file": "persistence_test.log",
+        "expected_hash": "hash_1",
+        "received_hash": "hash_2",
+        "timestamp": "2026-02-13T22:25:34.291795",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:52370",
+        "log_file": "persistence_test.log",
+        "expected_hash": "hash_2",
+        "received_hash": "hash_0",
+        "timestamp": "2026-02-13T22:31:04.899404",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:52370",
+        "log_file": "persistence_test.log",
+        "expected_hash": "hash_0",
+        "received_hash": "hash_1",
+        "timestamp": "2026-02-13T22:31:05.100488",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:52370",
+        "log_file": "persistence_test.log",
+        "expected_hash": "hash_1",
+        "received_hash": "hash_2",
+        "timestamp": "2026-02-13T22:31:05.301397",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:52938",
+        "log_file": "persistence_test.log",
+        "expected_hash": "hash_2",
+        "received_hash": "hash_0",
+        "timestamp": "2026-02-13T22:40:08.587402",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:52938",
+        "log_file": "persistence_test.log",
+        "expected_hash": "hash_0",
+        "received_hash": "hash_1",
+        "timestamp": "2026-02-13T22:40:08.788581",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      },
+      {
+        "client_id": "127.0.0.1:52938",
+        "log_file": "persistence_test.log",
+        "expected_hash": "hash_1",
+        "received_hash": "hash_2",
+        "timestamp": "2026-02-13T22:40:08.990172",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      }
+    ],
+    "last_hash": "hash_2"
+  },
+  "network_logs.txt": {
+    "initial_hash": "2acfbdbae926bf95c608ac1ef0400531d99b947a4125e9e7a6c50f3049e3ff82",
+    "heartbeats": [
+      {
+        "timestamp": "2026-02-14T07:54:56.693035",
+        "hash": "2acfbdbae926bf95c608ac1ef0400531d99b947a4125e9e7a6c50f3049e3ff82",
+        "client": "127.0.0.1:64668"
+      },
+      {
+        "timestamp": "2026-02-14T07:55:01.694224",
+        "hash": "2acfbdbae926bf95c608ac1ef0400531d99b947a4125e9e7a6c50f3049e3ff82",
+        "client": "127.0.0.1:64668"
+      }
+    ],
+    "alerts": [],
+    "last_hash": "2acfbdbae926bf95c608ac1ef0400531d99b947a4125e9e7a6c50f3049e3ff82"
+  },
+  "application_logs.txt": {
+    "initial_hash": "8950ff79be5a6d42f0ebea09b422e00904b8526eceebcf13c5046960064dc249",
+    "heartbeats": [
+      {
+        "timestamp": "2026-02-14T07:55:06.695444",
+        "hash": "8950ff79be5a6d42f0ebea09b422e00904b8526eceebcf13c5046960064dc249",
+        "client": "127.0.0.1:64668"
+      },
+      {
+        "timestamp": "2026-02-14T07:55:11.696258",
+        "hash": "8950ff79be5a6d42f0ebea09b422e00904b8526eceebcf13c5046960064dc249",
+        "client": "127.0.0.1:64668"
+      },
+      {
+        "timestamp": "2026-02-14T07:55:16.697208",
+        "hash": "8950ff79be5a6d42f0ebea09b422e00904b8526eceebcf13c5046960064dc249",
+        "client": "127.0.0.1:64668"
+      },
+      {
+        "timestamp": "2026-02-14T07:55:21.698227",
+        "hash": "8950ff79be5a6d42f0ebea09b422e00904b8526eceebcf13c5046960064dc249",
+        "client": "127.0.0.1:64668"
+      },
+      {
+        "timestamp": "2026-02-14T07:55:26.699163",
+        "hash": "8950ff79be5a6d42f0ebea09b422e00904b8526eceebcf13c5046960064dc249",
+        "client": "127.0.0.1:64668"
+      },
+      {
+        "timestamp": "2026-02-14T07:55:31.700344",
+        "hash": "a1a1c3c504769b233c29d638a1ec36615d2dccd9ed8196d6c8e762597aadd413",
+        "client": "127.0.0.1:64668"
+      },
+      {
+        "timestamp": "2026-02-14T07:55:36.711248",
+        "hash": "a1a1c3c504769b233c29d638a1ec36615d2dccd9ed8196d6c8e762597aadd413",
+        "client": "127.0.0.1:64668"
+      },
+      {
+        "timestamp": "2026-02-14T07:55:41.711966",
+        "hash": "a1a1c3c504769b233c29d638a1ec36615d2dccd9ed8196d6c8e762597aadd413",
+        "client": "127.0.0.1:64668"
+      }
+    ],
+    "alerts": [
+      {
+        "client_id": "127.0.0.1:64668",
+        "log_file": "application_logs.txt",
+        "expected_hash": "8950ff79be5a6d42f0ebea09b422e00904b8526eceebcf13c5046960064dc249",
+        "received_hash": "a1a1c3c504769b233c29d638a1ec36615d2dccd9ed8196d6c8e762597aadd413",
+        "timestamp": "2026-02-14T07:55:31.700599",
+        "message": "\u26a0\ufe0f SECURITY ALERT: Log file tampering detected!"
+      }
+    ],
+    "last_hash": "a1a1c3c504769b233c29d638a1ec36615d2dccd9ed8196d6c8e762597aadd413"
   }
 }

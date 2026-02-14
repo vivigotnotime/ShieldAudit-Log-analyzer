@@ -1,20 +1,118 @@
-=== SYSTEM AUDIT LOG - WEEK 2 ===
-[2024-01-08 09:00:00] System startup completed
-[2024-01-08 09:10:15] Security scan initiated
-[2024-01-08 09:45:30] 2 potential threats detected
-[2024-01-08 09:46:22] Threats neutralized
-[2024-01-08 15:30:00] Weekly report generated
+=== SYSTEM AUDIT LOGS - SHIELDAUDIT MONITORING ===
+=== Generated: 2026-02-14 ===
+=== Total Entries: 150 ===
 
-[2024-01-09 09:00:00] System startup completed
-[2024-01-09 09:10:15] Security scan initiated
-[2024-01-09 09:45:30] No threats detected
-[2024-01-09 11:20:00] User 'auditor' logged in from 192.168.1.110
-[2024-01-09 14:30:00] Compliance audit started
-[2024-01-09 16:45:00] Audit completed: All checks passed
+[2026-02-01 00:00:00] INFO: System startup - Kernel: 5.15.0-91-generic, Hostname: shieldaudit-server, Uptime: 0s
+[2026-02-01 00:00:01] INFO: CPU detected - Model: Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz, Cores: 16, Threads: 32
+[2026-02-01 00:00:02] INFO: Memory detected - Total: 128GB, Type: DDR4 ECC, Speed: 2400MHz
+[2026-02-01 00:00:03] INFO: Storage devices - sda: 2TB SSD, sdb: 4TB HDD, sdc: 4TB HDD (RAID 1)
+[2026-02-01 00:00:04] INFO: Network interfaces - eth0: 1Gbps, eth1: 10Gbps, bond0: 20Gbps (LACP)
+[2026-02-01 00:00:05] INFO: System services starting - sshd, cron, rsyslog, auditd, docker
+[2026-02-01 00:00:10] INFO: Service started - sshd, PID: 1234, Port: 22
+[2026-02-01 00:00:11] INFO: Service started - cron, PID: 1235
+[2026-02-01 00:00:12] INFO: Service started - rsyslog, PID: 1236
+[2026-02-01 00:00:13] INFO: Service started - auditd, PID: 1237
+[2026-02-01 00:00:14] INFO: Service started - docker, PID: 1238, Version: 24.0.7
+[2026-02-01 00:00:15] INFO: System ready - Boot completed in 15.2 seconds
 
-[2024-01-10 09:00:00] System startup completed
-[2024-01-10 09:10:15] Security scan initiated
-[2024-01-10 09:45:30] 1 potential threat detected
-[2024-01-10 09:46:22] Threat neutralized
-[2024-01-10 13:15:00] Firewall configuration updated
-[2024-01-10 15:30:00] Weekly report generated
+[2026-02-01 00:15:23] INFO: User login - User: admin, TTY: tty1, Source: local, Time: 00:15:23
+[2026-02-01 00:15:24] INFO: Session started - User: admin, Session ID: 1, Type: graphical
+[2026-02-01 00:16:45] INFO: Sudo command - User: admin, Command: systemctl status docker, PWD: /home/admin
+[2026-02-01 00:17:12] INFO: SSH login - User: admin, Source: 192.168.1.45, Port: 22, Auth: publickey
+[2026-02-01 00:17:13] INFO: SSH session - Client: OpenSSH_8.9, Protocol: 2.0, Cipher: chacha20-poly1305@openssh.com
+[2026-02-01 00:18:34] INFO: Process started - PID: 2345, User: www-data, Command: nginx: master process, CPU: 0.1%, Memory: 0.2%
+[2026-02-01 00:18:35] INFO: Process started - PID: 2346, User: www-data, Command: nginx: worker process, CPU: 0.5%, Memory: 0.3%
+[2026-02-01 00:18:36] INFO: Process started - PID: 2347, User: www-data, Command: nginx: worker process, CPU: 0.5%, Memory: 0.3%
+[2026-02-01 00:18:37] INFO: Process started - PID: 2348, User: www-data, Command: nginx: worker process, CPU: 0.5%, Memory: 0.3%
+[2026-02-01 00:18:38] INFO: Process started - PID: 2349, User: www-data, Command: nginx: worker process, CPU: 0.5%, Memory: 0.3%
+[2026-02-01 00:22:45] INFO: Cron job executed - User: root, Command: /usr/bin/logrotate /etc/logrotate.conf, PID: 2356
+[2026-02-01 00:22:46] INFO: Log rotation - Logs rotated: /var/log/syslog, /var/log/auth.log, /var/log/kern.log
+[2026-02-01 00:22:47] INFO: Compressed old logs - Savings: 234MB, New size: 45MB
+
+[2026-02-01 02:00:00] INFO: System update started - Command: apt update, User: root (cron)
+[2026-02-01 02:00:01] INFO: Package repository update - Hit:1 http://archive.ubuntu.com jammy InRelease
+[2026-02-01 02:00:02] INFO: Package repository update - Hit:2 http://security.ubuntu.com jammy-security InRelease
+[2026-02-01 02:00:03] INFO: Package repository update - Hit:3 http://archive.ubuntu.com jammy-updates InRelease
+[2026-02-01 02:00:10] INFO: Package updates available - 45 packages can be upgraded, 12 are security updates
+[2026-02-01 02:00:11] INFO: Security updates - linux-image (CVE-2026-1234), openssl (CVE-2026-5678), nginx (CVE-2026-9012)
+[2026-02-01 02:15:00] INFO: System upgrade started - Command: apt upgrade -y, User: admin
+[2026-02-01 02:15:01] INFO: Downloading packages - 45 packages, Size: 234MB, Speed: 12MB/s
+[2026-02-01 02:15:30] INFO: Installing packages - Progress: 10/45, Package: linux-image-5.15.0-92-generic
+[2026-02-01 02:15:45] INFO: Installing packages - Progress: 20/45, Package: openssl-3.0.2-0ubuntu1.15
+[2026-02-01 02:16:00] INFO: Installing packages - Progress: 30/45, Package: nginx-1.18.0-6ubuntu14.5
+[2026-02-01 02:16:15] INFO: Installing packages - Progress: 40/45, Package: docker.io-24.0.7-0ubuntu1
+[2026-02-01 02:16:30] INFO: Upgrade completed - 45 packages upgraded, 0 failed, 0 held back
+[2026-02-01 02:16:31] INFO: System restart required - Kernel updated, Reboot needed
+
+[2026-02-01 04:30:00] INFO: Filesystem usage - /dev/sda1: 45% used (45GB/100GB), /dev/sdb1: 78% used (3.1TB/4TB)
+[2026-02-01 04:30:01] INFO: Filesystem usage - /dev/sdc1: 82% used (3.3TB/4TB), /dev/md0: 67% used (2.7TB/4TB)
+[2026-02-01 04:30:02] INFO: Inode usage - /: 12% used, /home: 34% used, /var: 56% used, /tmp: 2% used
+[2026-02-01 04:30:03] WARNING: Filesystem usage warning - /var/log: 85% used (8.5GB/10GB), Consider log rotation
+[2026-02-01 04:30:04] INFO: Disk I/O statistics - Read: 45MB/s, Write: 23MB/s, IOPS: 1,234, Queue: 0.5
+[2026-02-01 04:30:05] INFO: Top I/O processes - PID 1234 (mysqld): 12MB/s, PID 5678 (nginx): 5MB/s
+[2026-02-01 04:45:23] INFO: System load - Load average: 2.45, 3.12, 2.89, CPU usage: 23% user, 12% system, 65% idle
+[2026-02-01 04:45:24] INFO: Memory usage - Total: 128GB, Used: 78GB, Free: 45GB, Cached: 5GB, Swap: 0/16GB
+[2026-02-01 04:45:25] INFO: Top memory processes - PID 2345 (java): 12GB, PID 3456 (redis): 8GB, PID 4567 (mysql): 6GB
+[2026-02-01 04:45:26] INFO: Swap usage - 0% used, No swapping detected
+
+[2026-02-01 08:00:00] INFO: System backup started - Type: full, Target: /backups/system, Destination: /mnt/backup
+[2026-02-01 08:00:01] INFO: Backup source - /etc, /home, /var, /opt, Excluding: /tmp, /proc, /sys
+[2026-02-01 08:00:05] INFO: Backup progress - /etc: 45MB, Speed: 22MB/s, ETA: 2s
+[2026-02-01 08:00:07] INFO: Backup progress - /home: 12GB, Speed: 45MB/s, ETA: 273s
+[2026-02-01 08:04:40] INFO: Backup progress - /var: 8.5GB, Speed: 38MB/s, ETA: 224s
+[2026-02-01 08:08:24] INFO: Backup progress - /opt: 15GB, Speed: 42MB/s, ETA: 357s
+[2026-02-01 08:14:21] INFO: Backup completed - Total size: 35.5GB, Duration: 14 minutes 21 seconds
+[2026-02-01 08:14:22] INFO: Backup verification - Checksum: SHA256, Valid: true
+[2026-02-01 08:14:23] INFO: Backup metadata - Backup ID: 20260201-0800, Size: 35.5GB, Files: 1,245,678
+
+[2026-02-01 10:23:45] INFO: Hardware event - CPU temperature: 65°C, Threshold: 85°C, Status: normal
+[2026-02-01 10:23:46] INFO: Hardware event - Fan speed: 3,450 RPM, Status: normal
+[2026-02-01 10:23:47] INFO: Hardware event - Power supply: 450W, Status: normal, Battery: 100%
+[2026-02-01 10:23:48] WARNING: Hardware event - RAID controller: Battery low, Replace soon
+[2026-02-01 10:23:49] INFO: SMART data - sda: Status: PASS, Temperature: 42°C, Power-on hours: 12,345
+[2026-02-01 10:23:50] INFO: SMART data - sdb: Status: PASS, Temperature: 38°C, Power-on hours: 23,456
+[2026-02-01 10:23:51] WARNING: SMART data - sdc: Status: WARNING, Reallocated sectors: 45, Threshold: 50
+[2026-02-01 10:23:52] INFO: Disk replacement scheduled - sdc, Date: 2026-02-03, Time: 02:00
+
+[2026-02-01 12:45:23] INFO: Kernel message - [12345.678901] CPU0: Core temperature above threshold, cpu clock throttled
+[2026-02-01 12:45:24] INFO: Kernel message - [12345.678902] CPU1: Core temperature above threshold, cpu clock throttled
+[2026-02-01 12:45:25] INFO: Kernel message - [12345.678903] mce: [Hardware Error]: Machine check events logged
+[2026-02-01 12:45:26] WARNING: Hardware error - CPU0: Machine check, Corrected error, Count: 1
+[2026-02-01 12:45:27] INFO: EDAC - MC0: CE error on CPU0, Memory rank 0, DIMM A1
+[2026-02-01 12:45:28] INFO: Memory error logged - Address: 0x7f8a4b3c2d1e, Corrected: true
+
+[2026-02-01 15:30:00] INFO: Service status check - Services: 45 running, 0 stopped, 0 failed
+[2026-02-01 15:30:01] INFO: Service health - sshd: healthy, nginx: healthy, mysql: healthy, redis: healthy
+[2026-02-01 15:30:02] INFO: Service uptime - sshd: 15d 4h, nginx: 8d 12h, mysql: 23d 8h, redis: 12d 6h
+[2026-02-01 15:34:23] INFO: Service restarted - nginx, Reason: Configuration reload, PID: 3456 → 3457
+[2026-02-01 15:34:24] INFO: Configuration test - nginx -t, Syntax OK, Test passed
+[2026-02-01 15:34:25] INFO: Service reload - nginx, Signal: HUP, Status: success
+
+[2026-02-01 18:45:23] INFO: User logout - User: admin, TTY: tty1, Duration: 18h 29m, PID: 1234
+[2026-02-01 18:45:24] INFO: Session ended - User: admin, Session ID: 1, Type: graphical
+[2026-02-01 18:45:25] INFO: SSH logout - User: admin, Source: 192.168.1.45, Duration: 18h 28m, Bytes in/out: 45MB/12MB
+[2026-02-01 20:15:00] INFO: Power management - System entering sleep mode, Reason: idle timeout
+[2026-02-01 20:15:01] INFO: Suspending devices - Network, Storage, USB
+[2026-02-01 20:15:02] INFO: System suspended - Wake configured for 2026-02-02 08:00:00
+
+[2026-02-02 08:00:00] INFO: System wake - Wake source: RTC, Reason: scheduled wake
+[2026-02-02 08:00:01] INFO: Resuming devices - Network: eth0 up, Storage: all online, USB: enumerated
+[2026-02-02 08:00:02] INFO: System resumed - Suspended for 11h 44m, 58s
+[2026-02-02 08:00:03] INFO: Time sync - NTP sync: offset -0.023s, stratum 2, server: 0.pool.ntp.org
+[2026-02-02 08:00:04] INFO: Hardware clock - System time synced to hardware clock
+
+[2026-02-02 10:23:45] INFO: Certificate renewal - Certificate: /etc/ssl/certs/company.com.crt, Renewal: successful
+[2026-02-02 10:23:46] INFO: New certificate issued - Issuer: Let's Encrypt, Expiry: 2026-05-03, Days valid: 90
+[2026-02-02 10:23:47] INFO: Services reloaded - nginx, postfix, dovecot
+[2026-02-02 12:34:56] INFO: Network configuration changed - DNS servers updated: 8.8.8.8, 1.1.1.1
+[2026-02-02 12:34:57] INFO: resolv.conf updated - Nameservers: 8.8.8.8, 1.1.1.1, Search domain: company.com
+[2026-02-02 12:34:58] INFO: Network restart - Interface: eth0, Status: UP, New IP: 192.168.1.100 (DHCP)
+[2026-02-02 14:56:78] INFO: Firewall rules updated - 45 rules added, 12 rules removed, 234 rules total
+[2026-02-02 14:56:79] INFO: iptables - Filter table: 145 rules, NAT table: 23 rules, Mangle table: 66 rules
+[2026-02-02 14:56:80] INFO: Firewall status - Default policies: INPUT DROP, FORWARD DROP, OUTPUT ACCEPT
+
+[2026-02-02 18:00:00] INFO: Daily system summary - Date: 2026-02-02
+[2026-02-02 18:00:01] INFO: System uptime - 18 days, 4 hours, 23 minutes
+[2026-02-02 18:00:02] INFO: Resource usage - CPU peak: 78%, Memory peak: 82GB, Disk peak: 234MB/s
+[2026-02-02 18:00:03] INFO: Events logged - Total: 23,456, Info: 22,345, Warning: 1,098, Error: 13
+[2026-02-02 18:00:04] INFO: System health - Overall status: GOOD, Issues: 2 warnings (disk space, RAID battery)
